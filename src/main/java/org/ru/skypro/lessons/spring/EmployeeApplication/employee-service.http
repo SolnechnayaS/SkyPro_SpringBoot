@@ -1,14 +1,32 @@
 ### Получение суммы зарплат сотрудников
-GET http://localhost:8080/employee/salary/sum
+GET http://localhost:8080/employees/salary/sum
 
 ### Получение средней зарплаты сотрудников
-GET http://localhost:8080/employee/salary/average
+GET http://localhost:8080/employees/salary/average
 
 ### Получение сотрудника с минимальной зарплатой
-GET http://localhost:8080/employee/salary/min
+GET http://localhost:8080/employees/salary/min
 
 ### Получение сотрудника с максимальной зарплатой
-GET http://localhost:8080/employee/salary/max
+GET http://localhost:8080/employees/salary/max
 
 ### Получение всех сотрудников, зарплата которых больше средней
-GET http://localhost:8080/employee/salary/high
+GET http://localhost:8080/employees/salary/high
+
+### POST-запрос Он должен создавать множество новых сотрудников;
+POST http://localhost:8080/employees/generate?number=25
+
+### Получение списка всех сотрудников
+GET http://localhost:8080/employees/
+
+### PUT-запрос Он должен редактировать сотрудника с указанным id;
+PUT http://localhost:8080/employees/25?indexation=2.5
+
+### GET-запрос Он должен возвращать информацию о сотруднике с переданным id;
+GET http://localhost:8080/employees/26
+
+### DELETE-запрос Он должен удалять сотрудника с переданным id;
+DELETE http://localhost:8080/employees/3
+
+### GET-запрос Он должен возвращать всех сотрудников, зарплата которых выше переданного параметра salary
+GET http://localhost:8080/employees/salary/HigherThan?salary=100000
