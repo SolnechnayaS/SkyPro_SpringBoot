@@ -59,7 +59,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public void editEmployeeById (@PathVariable int id, @RequestParam ("indexation") Double indexation) {
+    public void editEmployeeById (@PathVariable int id, @RequestBody Double indexation) {
         employeeService.editEmployeeById(id,indexation);
     }
 
