@@ -5,20 +5,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @Repository
-public class EmployeeRepositoryImpl implements EmployeeRepository{
+public class EmployeeRepositoryImpl implements EmployeeRepository {
 
-    private final List<Employee> employeeList = List.of(
-            new Employee("Katya", 190_000),
-            new Employee("Dima", 150_000),
-            new Employee("Oleg", 150_000),
-            new Employee("Vika", 165_000));
+    private final Map<Integer, Employee> employeeList = new HashMap<>();
 
     @Override
-    public List<Employee> getAllEmployees() {
-        return new ArrayList<>(employeeList);
+    public Map<Integer, Employee> getAllEmployees() {
+        return employeeList;
     }
+
 }
