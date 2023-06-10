@@ -41,4 +41,10 @@ public class EmployeeExceptionHandler {
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+//    @ExceptionHandler
+//    public ResponseEntity<?> IncorrectEmployeeIdException(NullPointerException nullPointerException) {
+//
+//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
 }

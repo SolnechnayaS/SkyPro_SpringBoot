@@ -1,12 +1,15 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.controller;
 
+import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
+import org.ru.skypro.lessons.spring.EmployeeApplication.exception.IncorrectEmployeeIdException;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
@@ -18,54 +21,54 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping
-    public Map<Integer, Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
-    }
-
     @GetMapping("/")
-    public Map<Integer, Employee> readAllEmployee() {
-        return employeeService.readAllEmployee();
+    public List<EmployeeDTO> findAllEmployees() {
+        return employeeService.allEmployeesToEmployeesDTO(employeeService.findAllEmployees());
     }
 
-    @GetMapping("/salary/min")
-    public Optional<Employee> getMinSalary() {
-        return employeeService.getMinSalary();
+    @GetMapping("/withHighestSalary")
+    public List<EmployeeDTO> getHighestSalary() throws IncorrectEmployeeIdException {
+        return employeeService.allEmployeesToEmployeesDTO(employeeService.getHighestSalary());
     }
 
-    @GetMapping("/salary/max")
-    public Optional<Employee> getMaxSalary() {
-        return employeeService.getMaxSalary();
+    @GetMapping
+    public List<EmployeeFullInfo> getAllEmployeesByPosition(@RequestParam(value = "position", required=false) Integer positionId) {
+        return employeeService.getAllEmployeesByPosition(positionId)
+                .stream()
+                .map(EmployeeFullInfo::fromEmployee)
+                .toList();
     }
 
-    @GetMapping("/salary/sum")
-    public Double getSumSalary() {
-        return employeeService.getSumSalary();
-    }
-
-    @GetMapping("/salary/average")
-    public Double getAverageSalary() {
-        return employeeService.getAverageSalary();
-    }
-
-    @GetMapping("/salary/high")
-    public List<Employee> getHighSalary() {
-        return employeeService.getHighSalary();
+    @GetMapping("/page")
+    public List<EmployeeFullInfo> getEmployeeWithPaging(@RequestParam(value = "page", defaultValue = "1") Integer pageIndex, @RequestParam(value = "size", defaultValue = "10", required=false) int unitPerPage) {
+        return employeeService.getEmployeeWithPaging(pageIndex,unitPerPage)
+                .stream()
+                .map(EmployeeFullInfo::fromEmployee)
+                .toList();
     }
 
     @PostMapping("/generate")
     public void generateEmployees(@RequestParam("number") Integer number) {
-        employeeService.generateEmployees(number);
+        for (int i = 0; i < number; i++) {
+            employeeService.addEmployee(employeeService.generateRandomEmployees());
+        }
+
     }
 
-    @PutMapping("/{id}")
-    public void editEmployeeById (@PathVariable int id, @RequestBody Double indexation) {
-        employeeService.editEmployeeById(id,indexation);
+    @PostMapping("/")
+    public void addEmployees(@RequestBody Employee employee) {
+        employeeService.addEmployee(employee);
     }
 
     @GetMapping("/{id}")
-    public Employee readEmployeeById(@PathVariable int id) {
-        return employeeService.readEmployeeById(id);
+    public Optional<Employee> readEmployeeById(@PathVariable int id) {
+        System.out.println(employeeService.getEmployeeById(id));
+        return employeeService.getEmployeeById(id);
+    }
+
+    @GetMapping("/{id}/fullInfo")
+    public EmployeeFullInfo readEmployeeByIdFullInfo(@PathVariable int id) throws IncorrectEmployeeIdException {
+        return employeeService.getEmployeeByIdFullInfo(id);
     }
 
     @DeleteMapping("/{id}")
@@ -74,8 +77,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/salary/HigherThan")
-    public List<Employee> salaryHigherThan(@RequestParam("salary") Integer salary) {
-        return employeeService.salaryHigherThan(salary);
+    public List<EmployeeDTO> salaryHigherThan(@RequestParam("salary") Integer salary) {
+        return employeeService.allEmployeesToEmployeesDTO(employeeService.salaryHigherThan(salary));
     }
 
 }

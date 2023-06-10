@@ -1,31 +1,30 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.service;
 
+import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
+import org.ru.skypro.lessons.spring.EmployeeApplication.exception.IncorrectEmployeeIdException;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface EmployeeService {
 
-    Map<Integer,Employee> getAllEmployees();
+    List<EmployeeDTO> allEmployeesToEmployeesDTO(List<Employee> employees);
 
-    Optional<Employee> getMinSalary ();
-    Optional<Employee> getMaxSalary ();
+    List<Employee> findAllEmployees();
+
     Double getSumSalary ();
     Double getAverageSalary();
-    List<Employee> getHighSalary ();
-
-    void generateEmployees (Integer number);
-
-    void editEmployeeById (int id, double indexation);
-
-    Employee readEmployeeById (int id);
-
-     Map <Integer, Employee> readAllEmployee();
-
-    void deleteEmployeeById (int id);
-
+    List<Employee> getHighestSalary () throws IncorrectEmployeeIdException;
     List<Employee> salaryHigherThan(Integer salary);
+    Employee generateRandomEmployees();
+    EmployeeFullInfo getEmployeeByIdFullInfo(int id) throws IncorrectEmployeeIdException;
+    Optional<Employee> getEmployeeById(int id);
+    void deleteEmployeeById (int id);
+    void addEmployee(Employee employee);
 
+    List<Employee> getEmployeeWithPaging(int pageIndex, int unitPerPage);
+
+    List<Employee> getAllEmployeesByPosition(Integer position);
 }
