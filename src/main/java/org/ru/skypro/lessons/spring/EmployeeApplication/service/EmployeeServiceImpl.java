@@ -1,15 +1,14 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.service;
 
 import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
-import org.ru.skypro.lessons.spring.EmployeeApplication.exception.IncorrectEmployeeIdException;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeInfo;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeView;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.EmployeeRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.NameGenerator;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.PositionRepository;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -27,35 +26,26 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.positionRepository = positionRepository;
     }
 
-
-    public Double getSumSalary() {
-        return findAllEmployees()
-                .stream()
-                .mapToDouble(Employee::getSalary)
-                .sum();
+    @Override
+    public List<Employee> findAllEmployees() {
+        return employeeRepository.findAllEmployee();
     }
 
-    public Double getAverageSalary() {
-        return getSumSalary() / (findAllEmployees().size());
+    @Override
+    public List<EmployeeView> findAllEmployeesView() {
+        return employeeRepository.findAllEmployeeView();
     }
 
-    public List<Employee> getHighestSalary() throws IncorrectEmployeeIdException {
-        Employee employeeMaxSalary = findAllEmployees()
-                .stream()
-                .max(Comparator.comparingDouble(Employee::getSalary)).orElseThrow(() -> new IncorrectEmployeeIdException("Пользователь не найден"));
-        Integer maxSalary = employeeMaxSalary.getSalary();
+    @Override
+    public List<EmployeeFullInfo> findAllEmployeesFullInfo() {
+        return employeeRepository.findAllEmployeeFullInfo();
+    }
 
-        return findAllEmployees()
-                .stream()
-                .filter(employeeDTO -> Objects.equals(employeeDTO.getSalary(), maxSalary))
-                .toList();
+    @Override
+    public List<EmployeeInfo> findAllEmployeesInfo() {
+        return employeeRepository.findAllEmployeeInfo();
     }
-    public List<Employee> salaryHigherThan(Integer salary) {
-        return findAllEmployees()
-                .stream()
-                .filter(employee -> employee.getSalary() > (salary))
-                .toList();
-    }
+
 
     @Override
     public List<EmployeeDTO> allEmployeesToEmployeesDTO(List<Employee> employees) {
@@ -66,13 +56,42 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> findAllEmployees() {
-        List<Employee> employeeList = new ArrayList<>();
-        Iterator<Employee> employeeIterator = employeeRepository
-                .findAll()
-                .iterator();
-        employeeIterator.forEachRemaining(employeeList::add);
-        return employeeList;
+    public Integer getMaxSalary() {
+        return employeeRepository.maxSalary();
+    }
+
+    @Override
+    public EmployeeFullInfo getEmployeeFullInfoById(Integer id) {
+        return EmployeeFullInfo.fromEmployee(employeeRepository.getEmployeeById(id));
+    }
+
+    @Override
+    public List<EmployeeFullInfo> getEmployeeFullInfoWithMaxSalary() {
+        return employeeRepository.getEmployeeFullInfoWithMaxSalary();
+    }
+
+    @Override
+    public Position findByPositionId(Integer positionId) {
+        return positionRepository.findByPositionId(positionId);
+    }
+
+    @Override
+    public List<EmployeeFullInfo> getEmployeeFullInfoByPosition(Integer positionId) {
+        List<EmployeeFullInfo> listAllEmployeesByPosition = new ArrayList<>();
+        if (positionId == null) {
+            listAllEmployeesByPosition = employeeRepository.findAllEmployeeFullInfo();
+        } else {
+            listAllEmployeesByPosition = positionRepository.findByPositionId(positionId)
+                    .getEmployee()
+                    .stream()
+                    .map(EmployeeFullInfo::fromEmployee)
+                    .toList();
+        }
+        return listAllEmployeesByPosition;
+    }
+
+    public List<EmployeeFullInfo> salaryHigherThan(Integer salary) {
+        return employeeRepository.salaryHigherThan(salary);
     }
 
     public Employee generateRandomEmployees() {
@@ -87,14 +106,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Optional<Employee> getEmployeeById(int id) {
-        return employeeRepository.findById(id);
+    public List<Employee> getEmployeeWithPaging(int pageIndex, int unitPerPage) {
+        PageRequest employeeOfConcretePage = PageRequest.of(pageIndex, unitPerPage);
+        Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
+        return page.stream()
+                .toList();
     }
 
     @Override
-    public EmployeeFullInfo getEmployeeByIdFullInfo(int id) throws IncorrectEmployeeIdException {
-        return EmployeeFullInfo.fromEmployee(employeeRepository.findById(id).orElseThrow(() -> new IncorrectEmployeeIdException("Пользователь не найден")));
+    public List<EmployeeFullInfo> getEmployeeFullInfoWithPaging(int pageIndex, int unitPerPage) {
+        PageRequest employeeOfConcretePage = PageRequest.of(pageIndex, unitPerPage);
+        Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
+        return page
+                .stream()
+                .map(EmployeeFullInfo::fromEmployee)
+                .toList();
     }
+
 
     @Override
     public void deleteEmployeeById(int id) {
@@ -107,26 +135,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployeeWithPaging(int pageIndex, int unitPerPage) {
-        PageRequest employeeOfConcretePage = PageRequest.of(pageIndex, unitPerPage);
-        Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
-
-        return page.stream()
-                .toList();
+    public EmployeeDTO getEmployeeById(Integer id) {
+        return EmployeeDTO.fromEmployee(employeeRepository.getEmployeeById(id));
     }
 
     @Override
-    public List<Employee> getAllEmployeesByPosition(Integer position) {
-        List<Employee> employeeListByPosition = new ArrayList<>();
-        if (position == null) {
-            employeeListByPosition = findAllEmployees();
-        } else {
-            employeeListByPosition = findAllEmployees()
-                    .stream()
-                    .filter(employee -> employee.getPosition().getPositionId() == position)
-                    .toList();
-        }
-        return employeeListByPosition;
-    }
+    public Employee editEmployeeById(Integer id, Employee employeeNew) {
+        Employee employeeOld = employeeRepository.getEmployeeById(id);
+        String nameNew = employeeNew.getName();
+        Integer salaryNew = employeeNew.getSalary();
+        Position positionNew = employeeNew.getPosition();
 
+        if (!nameNew.isBlank())
+        {employeeOld.setName(nameNew);}
+
+        if (salaryNew !=0)
+        {employeeOld.setSalary(salaryNew);}
+
+        if (!(positionNew ==null))
+        employeeOld.setPosition(positionNew);
+        return employeeOld;
+    }
 }
