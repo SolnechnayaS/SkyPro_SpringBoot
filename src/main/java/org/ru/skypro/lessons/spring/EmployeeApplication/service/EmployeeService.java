@@ -1,31 +1,43 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.service;
 
+import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
+import org.ru.skypro.lessons.spring.EmployeeApplication.exception.IncorrectEmployeeIdException;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeInfo;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeView;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public interface EmployeeService {
 
-    Map<Integer,Employee> getAllEmployees();
+    List<Employee> findAllEmployees();
+    List<EmployeeView> findAllEmployeesView();
+    List<EmployeeFullInfo> findAllEmployeesFullInfo();
+    List<EmployeeInfo> findAllEmployeesInfo();
 
-    Optional<Employee> getMinSalary ();
-    Optional<Employee> getMaxSalary ();
-    Double getSumSalary ();
-    Double getAverageSalary();
-    List<Employee> getHighSalary ();
+    List<EmployeeDTO> allEmployeesToEmployeesDTO(List<Employee> employees);
 
-    void generateEmployees (Integer number);
+    Integer getMaxSalary();
 
-    void editEmployeeById (int id, double indexation);
+    EmployeeFullInfo getEmployeeFullInfoById(Integer id);
 
-    Employee readEmployeeById (int id);
+    List<EmployeeFullInfo> getEmployeeFullInfoWithMaxSalary();
+    Position findByPositionId (Integer positionId);
 
-     Map <Integer, Employee> readAllEmployee();
+    List<EmployeeFullInfo> getEmployeeFullInfoByPosition(Integer positionId);
+
+    List<EmployeeFullInfo> salaryHigherThan(Integer salary);
+
+    Employee generateRandomEmployees();
+
+    List<Employee> getEmployeeWithPaging(int pageIndex, int unitPerPage);
+    List<EmployeeFullInfo> getEmployeeFullInfoWithPaging(int pageIndex, int unitPerPage);
 
     void deleteEmployeeById (int id);
+    void addEmployee(Employee employee);
 
-    List<Employee> salaryHigherThan(Integer salary);
-
+    EmployeeDTO getEmployeeById(Integer id);
+    Employee editEmployeeById(Integer id, Employee employeeNew);
 }

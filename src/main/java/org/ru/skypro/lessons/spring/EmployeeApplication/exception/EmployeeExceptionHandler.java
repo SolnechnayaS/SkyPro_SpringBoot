@@ -30,15 +30,16 @@ public class EmployeeExceptionHandler {
 
     // Метод обработки исключений Exception.
     // Срабатывает, когда в контроллере возникает Exception.
+
     @ExceptionHandler
     public ResponseEntity<?> handlerException(Exception exception) {
         // Возвращает статус 403 (Forbidden) при возникновении Exception.
-        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>("Ошибка запроса, не переданы параметры",HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler
     public ResponseEntity<?> handlerNullPointerException(NullPointerException nullPointerException) {
-
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Пользователь не найден",HttpStatus.BAD_REQUEST);
     }
+
 }

@@ -1,16 +1,34 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.model;
 
+import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table (name = "employees")
 public class Employee {
 
-    private static int idGenerator = 1;
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employee_id")
+    private Integer id;
+
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
+
+    @Column(name = "salary", nullable = false)
     private int salary;
+
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name="position_id")
+    private Position position;
 
     @Override
     public String toString() {
@@ -19,12 +37,5 @@ public class Employee {
                 ", Имя='" + name + '\'' +
                 ", Зарплата=" + salary +
                 '}';
-    }
-
-    public Employee(String name, int salary) {
-        this.id = idGenerator;
-        idGenerator++;
-        this.name = name;
-        this.salary = salary;
     }
 }
