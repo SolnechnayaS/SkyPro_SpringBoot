@@ -1,11 +1,13 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.service;
 
 import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.Division;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeInfo;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeView;
+import org.ru.skypro.lessons.spring.EmployeeApplication.repository.DivisionRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.EmployeeRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.NameGenerator;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.PositionRepository;
@@ -21,9 +23,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final PositionRepository positionRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, PositionRepository positionRepository) {
+    private final DivisionRepository divisionRepository;
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, PositionRepository positionRepository, DivisionRepository divisionRepository) {
         this.employeeRepository = employeeRepository;
         this.positionRepository = positionRepository;
+        this.divisionRepository = divisionRepository;
     }
 
     @Override
@@ -97,11 +102,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee generateRandomEmployees() {
         int randomSalary = (int) (Math.random() * 100000 + 50000);
         int randomPositionId = (int) Math.round(Math.random() * 24) + 1;
+        int randomDivisionId = (int) Math.round(Math.random() * 4) + 1;
         Position randomPosition = positionRepository.findById(randomPositionId).orElseThrow();
+        Division randomDivision = divisionRepository.findById(randomDivisionId).orElseThrow();
         Employee randomEmployee = new Employee();
         randomEmployee.setName(NameGenerator.randomName());
         randomEmployee.setSalary(randomSalary);
         randomEmployee.setPosition(randomPosition);
+        randomEmployee.setDivision(randomDivision);
         return randomEmployee;
     }
 

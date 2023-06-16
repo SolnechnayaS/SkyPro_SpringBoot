@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.lang.model.element.ModuleElement;
 import java.util.List;
 
 @Data
@@ -30,12 +31,18 @@ public class Employee {
     @JoinColumn(name="position_id")
     private Position position;
 
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name="division_id")
+    private Division division;
+
     @Override
     public String toString() {
-        return "{" +
+        return "Employee{" +
                 "id=" + id +
-                ", Имя='" + name + '\'' +
-                ", Зарплата=" + salary +
+                ", name='" + name + '\'' +
+                ", salary=" + salary +
+                ", position=" + position.getPositionName() +
+                ", division=" + division.getDivisionName() +
                 '}';
     }
 }
