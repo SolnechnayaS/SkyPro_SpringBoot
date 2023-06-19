@@ -39,7 +39,7 @@ public class EmployeeExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<?> handlerNullPointerException(NullPointerException nullPointerException) {
-        return new ResponseEntity<>("Пользователь не найден",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Данные не найдены",HttpStatus.BAD_REQUEST);
     }
 
 }

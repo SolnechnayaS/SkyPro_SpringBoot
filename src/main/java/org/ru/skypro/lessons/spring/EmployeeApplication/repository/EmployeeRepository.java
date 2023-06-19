@@ -1,5 +1,6 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.repository;
 
+import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface EmployeeRepository extends CrudRepository<Employee, Integer>,
-        PagingAndSortingRepository<Employee, Integer> {
+        PagingAndSortingRepository<Employee, Integer>{
 
     @Query(value = "SELECT * FROM employees",
             nativeQuery = true)
@@ -51,5 +52,9 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>,
             "WHERE e.position = p " +
             "AND e.salary> :salary")
     List<EmployeeFullInfo> salaryHigherThan(@Param("salary") Integer salary);
+
+    @Query(value = "SELECT * FROM employees WHERE division_id= :divisionId",
+            nativeQuery = true)
+    List<Employee> findAllEmployeeFromDivision(@Param("divisionId") Integer divisionId);
 
 }

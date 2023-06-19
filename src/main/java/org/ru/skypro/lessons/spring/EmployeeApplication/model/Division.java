@@ -16,7 +16,7 @@ public class Division {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "division_id")
-    private Integer divisionId;
+    private Long divisionId;
 
     @Column(name = "division_name", length = 100, nullable = false)
     String divisionName;

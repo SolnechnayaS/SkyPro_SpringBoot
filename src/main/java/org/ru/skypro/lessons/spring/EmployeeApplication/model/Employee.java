@@ -9,23 +9,24 @@ import lombok.NoArgsConstructor;
 import javax.lang.model.element.ModuleElement;
 import java.util.List;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table (name = "employees")
+@Data
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Column(name = "salary", nullable = false)
-    private int salary;
+    private Double salary;
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name="position_id")
@@ -44,5 +45,45 @@ public class Employee {
                 ", position=" + position.getPositionName() +
                 ", division=" + division.getDivisionName() +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
     }
 }

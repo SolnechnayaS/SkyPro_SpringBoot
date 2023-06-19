@@ -1,26 +1,33 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
-import org.ru.skypro.lessons.spring.EmployeeApplication.exception.IncorrectEmployeeIdException;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
-import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeInfo;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeView;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.EmployeeService;
+import org.ru.skypro.lessons.spring.EmployeeApplication.service.ReportService;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
-public class EmployeeController<employeeNew> {
+public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    private final ReportService reportService;
+
+    public EmployeeController(EmployeeService employeeService, ReportService reportService) {
         this.employeeService = employeeService;
+        this.reportService = reportService;
     }
 
     @PostMapping("/generate")
@@ -29,8 +36,9 @@ public class EmployeeController<employeeNew> {
             employeeService.addEmployee(employeeService.generateRandomEmployees());
         }
     }
+
     @PutMapping("/{id}")
-    public void readEmployeeById(@PathVariable ("id") Integer id, @RequestBody Employee employeeNew) {
+    public void readEmployeeById(@PathVariable("id") Integer id, @RequestBody Employee employeeNew) {
         employeeService.addEmployee(employeeService.editEmployeeById(id, employeeNew));
     }
 
@@ -60,7 +68,7 @@ public class EmployeeController<employeeNew> {
     }
 
     @GetMapping
-    public List<EmployeeFullInfo> getAllEmployeesByPosition(@RequestParam(value = "position", required = false) Integer positionId) {
+    public List<EmployeeFullInfo> getAllEmployeesByPosition(@RequestParam(value = "position", required = false) Long positionId) {
         return employeeService.getEmployeeFullInfoByPosition(positionId);
     }
 
@@ -74,7 +82,12 @@ public class EmployeeController<employeeNew> {
         return employeeService.getEmployeeFullInfoWithPaging(pageIndex, unitPerPage);
     }
 
-
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void uploadFile(@RequestBody MultipartFile file) throws IOException {
+        System.out.println("Файл загружен. Имя файла: " + file.getOriginalFilename() +
+                " Размер файла: " + file.getSize() + " байт");
+        employeeService.uploadEmployeesFromFile(file);
+    }
 
 
     @GetMapping("/view")
@@ -96,7 +109,6 @@ public class EmployeeController<employeeNew> {
     public Integer getMaxSalary() {
         return employeeService.getMaxSalary();
     }
-
 
 
 }
