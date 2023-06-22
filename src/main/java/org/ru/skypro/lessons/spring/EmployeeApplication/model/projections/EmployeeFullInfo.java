@@ -13,10 +13,10 @@ import org.springframework.data.repository.CrudRepository;
 public class EmployeeFullInfo {
 
     private String name;
-    private Integer salary;
+    private Double salary;
     private String positionName;
 
-    public EmployeeFullInfo(String name, Integer salary, String positionName) {
+    public EmployeeFullInfo(String name, Double salary, String positionName) {
         this.name = name;
         this.salary = salary;
         this.positionName = positionName;

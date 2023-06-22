@@ -1,7 +1,6 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,16 +11,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table (name = "position")
-public class Position {
+@Table(name = "division")
+public class Division {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "position_id")
-    private Long positionId;
+    @Column(name = "division_id")
+    private Long divisionId;
 
-    @Column(name = "position_name", length = 100, nullable = false)
-    String positionName;
-    @OneToMany (fetch =FetchType.EAGER, mappedBy = "position")
+    @Column(name = "division_name", length = 100, nullable = false)
+    String divisionName;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "division")
     private List<Employee> employee;
 
 }
