@@ -1,44 +1,49 @@
 ###Запросы, доступные для Админа:
 
-POST http://localhost:8080/admin/employees/generate?number=25
+POST https://localhost:8080/admin/employees/generate?number=25
 ###Он должен создавать множество новых сотрудников;
 
 PUT http://localhost:8080/admin/employees/1
 ###Он должен редактировать сотрудника с указанным id;
 
-DELETE http://localhost:8080/admin/employees/1
+DELETE https://localhost:8080/admin/employees/15
 ###Он должен удалять сотрудника с переданным id;
 
-POST http://localhost:8080/admin/employees/upload
+POST https://localhost:8080/admin/employees/upload
 ###POST-запрос. Он должен принимать на вход файл JSON, содержащий список сотрудников в JSON-формате. Все сотрудники из загружаемого файла должны быть сохранены в базе данных.
 
-POST http://localhost:8080/admin/report/division
+POST https://localhost:8080/admin/employees/report/division?id=1
 ###POST-запрос. Он должен формировать JSON-файл со статистикой по отделам. А также сохранять содержимое файла в базу данных. Метод возвращает целочисленный идентификатор сохраненного в базе данных файла.
 ###Также он должен сохранять файл и его содержимое в файловой системе на вашем компьютере. В базу данных вы должны сохранять путь к сформированному отчету. Метод возвращает целочисленный идентификатор строки в таблице report.
+POST https://localhost:8080/admin/employees/report
+###
+
+POST https://localhost:8080/admin/users/create
+### Создать нового пользователя
 
 
 ###Запросы, доступные для всех Пользователей:
 
-GET http://localhost:8080/employees/
+GET https://localhost:8080/employees/
 ###Он должен возвращать информацию о всех сотрудниках;
 
-GET http://localhost:8080/employees/2
+GET https://localhost:8080/employees/2
 ###Он должен возвращать информацию о сотруднике с переданным id;
 
-GET http://localhost:8080/employees/salary/HigherThan?salary=10000
+GET https://localhost:8080/employees/salary/HigherThan?salary=10000
 ###Он должен возвращать всех сотрудников, зарплата которых выше переданного параметра salary.
 
-GET http://localhost:8080/employees/withHighestSalary
+GET https://localhost:8080/employees/withHighestSalary
 ###Он должен возвращать информацию о сотрудниках с самой высокой зарплатой в фирме;
 
-GET http://localhost:8080/employees?position=
+GET https://localhost:8080/employees?position=12
 ###Он должен принимать на вход опциональный параметр position и возвращать информацию о всех сотрудниках фирмы, указанной в параметре должности. Если параметр не указан, то возвращать необходимо всех сотрудников.
 
-GET http://localhost:8080/employees/12/fullInfo
+GET https://localhost:8080/employees/12/fullInfo
 ###Он должен возвращать полную информацию о сотруднике (имя, зарплата, название должности) с переданным в пути запроса идентификатором.
 
-GET http://localhost:8080/employees/page?page=2
+GET https://localhost:8080/employees/page?page=2
 ###Он должен возвращать информацию о сотрудниках, основываясь на номере страницы. Если страница не указана, то возвращается первая страница. Номера страниц начинаются с 0. Лимит на количество сотрудников на странице — 10 человек.
 
-GET http://localhost:8080/report/15
+GET https://localhost:8080/employees/report/15
 ###Он должен находить и возвращать созданный ранее файл в формате JSON по переданному уникальному идентификатору.
