@@ -15,11 +15,12 @@ import java.util.Objects;
 @Table(name = "authorities")
 public class Authority {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "authority_id")
-    private Long authorityId;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "authority_id")
+//    private Long authorityId;
 
+    @Id
     @Column (name = "authority")
     private String authority;
 

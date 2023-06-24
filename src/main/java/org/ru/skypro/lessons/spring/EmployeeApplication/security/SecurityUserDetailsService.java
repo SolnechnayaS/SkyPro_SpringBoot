@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-// Создаем класс SecurityUserDetailsService, который реализует интерфейс UserDetailsService
 public class SecurityUserDetailsService implements UserDetailsService {
+
     @Autowired
     // Внедряем зависимость UserRepository для доступа к базе пользователей
     private UserRepository userRepository;
@@ -28,4 +28,5 @@ public class SecurityUserDetailsService implements UserDetailsService {
         // пользовательской информации при аутентификации.
         return new SecurityUserPrincipal(user);
     }
+
 }

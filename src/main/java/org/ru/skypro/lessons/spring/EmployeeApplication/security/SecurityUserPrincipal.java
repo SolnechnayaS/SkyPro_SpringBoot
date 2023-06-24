@@ -1,28 +1,29 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.security;
 
-import org.ru.skypro.lessons.spring.EmployeeApplication.security.AuthUser;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 public class SecurityUserPrincipal implements UserDetails {
     private AuthUser user;
+
+    private List<SecurityGrantedAuthorities> authoritiesList;
 
     // Конструктор класса SecurityUserPrincipal,
     // принимающий объект класса AuthUser.
     public SecurityUserPrincipal(AuthUser user) {
         this.user = user;
+        this.authoritiesList = List.of(new SecurityGrantedAuthorities(user.getAuthority().getAuthority()));
     }
 
     @Override
     // Возвращает авторитеты (роли) пользователя.
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return new ArrayList<>(authoritiesList);
     }
 
     @Override
@@ -60,5 +61,4 @@ public class SecurityUserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    // ...
 }

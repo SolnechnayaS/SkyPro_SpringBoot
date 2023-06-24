@@ -25,8 +25,8 @@ public class AuthUser {
     @Column(name = "enabled")
     int enabled;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "authority_id")
+    @ManyToOne
+    @JoinColumn (name = "authority")
     protected Authority authority;
 
 }
