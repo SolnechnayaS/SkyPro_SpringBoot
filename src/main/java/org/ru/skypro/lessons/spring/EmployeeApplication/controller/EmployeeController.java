@@ -92,4 +92,14 @@ public class EmployeeController {
         return reportService.downloadReportFile(reportId);
     }
 
+//    @GetMapping("/employees/report")
+//    public void saveReportStatisticsAllDivisions() {
+//        reportService.saveReportStatisticsAllDivisions();
+//    }
+//
+//    @GetMapping("/employees/report/division")
+//    public void saveReportStatisticsByDivision(@RequestParam ("id") Integer divisionId) throws IOException {
+//        reportService.saveReportStatisticsDivision(reportService.reportStatisticsByDivision(divisionId));
+//    }
+
 }

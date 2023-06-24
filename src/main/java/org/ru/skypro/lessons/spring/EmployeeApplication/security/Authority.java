@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -22,19 +23,7 @@ public class Authority {
     @Column (name = "authority")
     private String authority;
 
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private AuthUser user;
+    @OneToMany(mappedBy = "authority", orphanRemoval = true, cascade = CascadeType.ALL)
+    protected List<AuthUser> authUsers;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Authority authority1)) return false;
-        return Objects.equals(getAuthorityId(), authority1.getAuthorityId()) && getAuthority().equals(authority1.getAuthority());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getAuthorityId(), getAuthority());
-    }
 }

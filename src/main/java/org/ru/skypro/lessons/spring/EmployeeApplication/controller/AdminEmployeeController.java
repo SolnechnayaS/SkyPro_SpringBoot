@@ -1,5 +1,6 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.controller;
 
+import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 import org.ru.skypro.lessons.spring.EmployeeApplication.security.AuthUser;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.EmployeeService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
@@ -25,6 +27,11 @@ public class AdminEmployeeController {
         this.employeeService = employeeService;
         this.reportService = reportService;
         this.userService = userService;
+    }
+
+    @GetMapping("/")
+    public List<EmployeeDTO> findAllEmployees() {
+        return employeeService.allEmployeesToEmployeesDTO(employeeService.findAllEmployees());
     }
 
     @PostMapping("/employees/generate")
