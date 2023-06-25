@@ -61,7 +61,7 @@ public class SecurityConfig {
             registry.requestMatchers(new AntPathRequestMatcher("/admin/**"))
                     .hasAnyRole("ADMIN")
                     .requestMatchers(new AntPathRequestMatcher("/**"))
-                    .hasAnyRole("USER")
+                    .hasAnyRole("USER","ADMIN")
                     .and()
                     .formLogin().permitAll()
                     .and()
