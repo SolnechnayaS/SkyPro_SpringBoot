@@ -9,7 +9,9 @@ import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.Employ
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeView;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.EmployeeService;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.ReportService;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,18 +32,6 @@ public class EmployeeController {
         this.reportService = reportService;
     }
 
-    @PostMapping("/generate")
-    public void generateEmployees(@RequestParam("number") Integer number) {
-        for (int i = 0; i < number; i++) {
-            employeeService.addEmployee(employeeService.generateRandomEmployees());
-        }
-    }
-
-    @PutMapping("/{id}")
-    public void readEmployeeById(@PathVariable("id") Integer id, @RequestBody Employee employeeNew) {
-        employeeService.addEmployee(employeeService.editEmployeeById(id, employeeNew));
-    }
-
     @GetMapping("/")
     public List<EmployeeDTO> findAllEmployees() {
         return employeeService.allEmployeesToEmployeesDTO(employeeService.findAllEmployees());
@@ -50,11 +40,6 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public EmployeeDTO readEmployeeById(@PathVariable Integer id) {
         return employeeService.getEmployeeById(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteEmployeeById(@PathVariable int id) {
-        employeeService.deleteEmployeeById(id);
     }
 
     @GetMapping("/salary/HigherThan")
@@ -82,14 +67,6 @@ public class EmployeeController {
         return employeeService.getEmployeeFullInfoWithPaging(pageIndex, unitPerPage);
     }
 
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void uploadFile(@RequestBody MultipartFile file) throws IOException {
-        System.out.println("Файл загружен. Имя файла: " + file.getOriginalFilename() +
-                " Размер файла: " + file.getSize() + " байт");
-        employeeService.uploadEmployeesFromFile(file);
-    }
-
-
     @GetMapping("/view")
     public List<EmployeeView> findAllEmployeesView() {
         return employeeService.findAllEmployeesView();
@@ -110,5 +87,19 @@ public class EmployeeController {
         return employeeService.getMaxSalary();
     }
 
+    @GetMapping("/report/{id}")
+    public ResponseEntity<Resource> downloadReportFile(@PathVariable ("id") Integer reportId) throws IOException {
+        return reportService.downloadReportFile(reportId);
+    }
+
+//    @GetMapping("/employees/report")
+//    public void saveReportStatisticsAllDivisions() {
+//        reportService.saveReportStatisticsAllDivisions();
+//    }
+//
+//    @GetMapping("/employees/report/division")
+//    public void saveReportStatisticsByDivision(@RequestParam ("id") Integer divisionId) throws IOException {
+//        reportService.saveReportStatisticsDivision(reportService.reportStatisticsByDivision(divisionId));
+//    }
 
 }
