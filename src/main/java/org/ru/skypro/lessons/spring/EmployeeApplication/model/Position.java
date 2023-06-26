@@ -5,6 +5,8 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ import java.util.List;
 @Entity
 @Table (name = "position")
 public class Position {
+
+    private static final Logger logger = LoggerFactory.getLogger(Position.class);
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "position_id")

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,10 +17,7 @@ import java.util.Objects;
 @Table(name = "authorities")
 public class Authority {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "authority_id")
-//    private Long authorityId;
+    private static final Logger logger = LoggerFactory.getLogger(Authority.class);
 
     @Id
     @Column (name = "authority")

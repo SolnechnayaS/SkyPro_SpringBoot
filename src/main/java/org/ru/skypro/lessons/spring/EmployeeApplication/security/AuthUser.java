@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.ru.skypro.lessons.spring.EmployeeApplication.service.UserServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +17,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class AuthUser {
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthUser.class);
 
     @Id
     @Column(name = "username", nullable = false, unique = true)
