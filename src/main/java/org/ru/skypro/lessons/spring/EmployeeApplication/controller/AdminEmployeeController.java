@@ -6,6 +6,8 @@ import org.ru.skypro.lessons.spring.EmployeeApplication.security.AuthUser;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.EmployeeService;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.ReportService;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminEmployeeController {
+    private static final Logger logger = LoggerFactory.getLogger(AdminEmployeeController.class);
 
     private final EmployeeService employeeService;
 
@@ -54,7 +57,7 @@ public class AdminEmployeeController {
 
     @PostMapping(value = "/employees/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void uploadFile(@RequestBody MultipartFile file) throws IOException {
-        System.out.println("Файл загружен. Имя файла: " + file.getOriginalFilename() +
+        logger.info("Файл загружен. Имя файла: " + file.getOriginalFilename() +
                 " Размер файла: " + file.getSize() + " байт");
         employeeService.uploadEmployeesFromFile(file);
     }
