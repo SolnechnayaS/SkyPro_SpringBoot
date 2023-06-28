@@ -10,10 +10,13 @@ import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeInfo;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeView;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.ReportStatisticsDivision;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.DivisionRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.EmployeeRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.NameGenerator;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.PositionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
     private final EmployeeRepository employeeRepository;
 
     private final PositionRepository positionRepository;
@@ -39,27 +44,32 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> findAllEmployees() {
+        logger.info("find All Employees");
         return employeeRepository.findAllEmployee();
     }
 
     @Override
     public List<EmployeeView> findAllEmployeesView() {
+        logger.info("find All Employees (EmployeeView)");
         return employeeRepository.findAllEmployeeView();
     }
 
     @Override
     public List<EmployeeFullInfo> findAllEmployeesFullInfo() {
+        logger.info("find All Employees (EmployeeFullInfo)");
         return employeeRepository.findAllEmployeeFullInfo();
     }
 
     @Override
     public List<EmployeeInfo> findAllEmployeesInfo() {
+        logger.info("find All Employees (EmployeeInfo)");
         return employeeRepository.findAllEmployeeInfo();
     }
 
 
     @Override
     public List<EmployeeDTO> allEmployeesToEmployeesDTO(List<Employee> employees) {
+        logger.info("Converting All Employees to EmployeesDTO");
         return employees
                 .stream()
                 .map(EmployeeDTO::fromEmployee)
@@ -68,21 +78,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Integer getMaxSalary() {
+        logger.info("get Max Salary");
         return employeeRepository.maxSalary();
     }
 
     @Override
     public EmployeeFullInfo getEmployeeFullInfoById(Integer id) {
+        logger.info("get Employee (EmployeeFullInfo) By Id");
         return EmployeeFullInfo.fromEmployee(employeeRepository.getEmployeeById(id));
     }
 
     @Override
     public List<EmployeeFullInfo> getEmployeeFullInfoWithMaxSalary() {
+        logger.info("get Employee (EmployeeFullInfo) With Max Salary");
         return employeeRepository.getEmployeeFullInfoWithMaxSalary();
     }
 
     @Override
     public Position findByPositionId(Long positionId) {
+        logger.info("find Position By Id");
         return positionRepository.findByPositionId(positionId);
     }
 
@@ -98,10 +112,12 @@ public class EmployeeServiceImpl implements EmployeeService {
                     .map(EmployeeFullInfo::fromEmployee)
                     .toList();
         }
+        logger.info("find Employees (EmployeeFullInfo) By Position's Id");
         return listAllEmployeesByPosition;
     }
 
     public List<EmployeeFullInfo> salaryHigherThan(Integer salary) {
+        logger.info("search for employees with a salary above the level="+salary);
         return employeeRepository.salaryHigherThan(salary);
     }
 
@@ -116,6 +132,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         randomEmployee.setSalary(randomSalary);
         randomEmployee.setPosition(randomPosition);
         randomEmployee.setDivision(randomDivision);
+        logger.info("generating random employees");
         return randomEmployee;
     }
 
@@ -123,6 +140,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getEmployeeWithPaging(int pageIndex, int unitPerPage) {
         PageRequest employeeOfConcretePage = PageRequest.of(pageIndex, unitPerPage);
         Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
+        logger.info("get Employee With Paging");
         return page.stream()
                 .toList();
     }
@@ -131,6 +149,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeFullInfo> getEmployeeFullInfoWithPaging(int pageIndex, int unitPerPage) {
         PageRequest employeeOfConcretePage = PageRequest.of(pageIndex, unitPerPage);
         Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
+        logger.info("get Employee (EmployeeFullInfo) With Paging");
         return page
                 .stream()
                 .map(EmployeeFullInfo::fromEmployee)
@@ -140,16 +159,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployeeById(int id) {
+        logger.info("delete Employee By Id");
         employeeRepository.deleteById(id);
     }
 
     @Override
     public void addEmployee(Employee employee) {
+        logger.info("add new Employee");
         employeeRepository.save(employee);
     }
 
     @Override
     public EmployeeDTO getEmployeeById(Integer id) {
+        logger.info("get Employee By Id");
         return EmployeeDTO.fromEmployee(employeeRepository.getEmployeeById(id));
     }
 
@@ -168,32 +190,39 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeOld.setSalary(salaryNew);
         }
 
-        if (!(positionNew == null))
+        if (!(positionNew == null)) {
             employeeOld.setPosition(positionNew);
+        }
+
+        logger.info("edit Employee By Id");
         return employeeOld;
     }
 
     @Override
     public String serializeEmployee(Employee employee) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        logger.info("serialize Employee");
         return objectMapper.writeValueAsString(employee);
     }
 
     @Override
     public Employee deserializeEmployee(String employee) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        logger.info("deserialize Employee");
         return objectMapper.readValue(employee, Employee.class);
     }
 
     @Override
     public String serializeEmployeeDTO(EmployeeDTO employeeDTO) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        logger.info("serialize EmployeeDTO");
         return objectMapper.writeValueAsString(employeeDTO);
     }
 
     @Override
     public EmployeeDTO deserializeEmployeeDTO(String employeeDTO) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        logger.info("deserialize EmployeeDTO");
         return objectMapper.readValue(employeeDTO, EmployeeDTO.class);
     }
 
@@ -201,6 +230,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDTO> deserializeFileWithListEmployeeDTO(String fileName) throws IOException {
         File file = new File(fileName);
         ObjectMapper objectMapper = new ObjectMapper();
+        logger.info("deserialize File With List EmployeeDTO");
         return objectMapper.readValue(file, new TypeReference<>() {
         });
     }
@@ -209,6 +239,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDTO> deserializeFileToEmployeeDTO(String fileName) throws IOException {
         File file = new File(fileName);
         ObjectMapper objectMapper = new ObjectMapper();
+
+        logger.info("deserialize File With List EmployeeDTO");
         return objectMapper.readValue(file, new TypeReference<>() {
         });
     }
@@ -224,6 +256,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .forEach(this::addEmployee);
 
         System.out.println("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
+        logger.info("upload Employees From File "+multipartFile.getOriginalFilename());
     }
 
     @Override
@@ -234,11 +267,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setSalary(employeeDTO.getSalary());
         employee.setPosition(positionRepository.findByPositionId(employeeDTO.getPositionId()));
         employee.setDivision(divisionRepository.findByDivisionId(employeeDTO.getDivisionId()));
+        logger.info("Converting EmployeeDTO to Employee");
         return employee;
     }
 
     @Override
     public List<Employee> allEmployeesDTOToEmployee(List<EmployeeDTO> employeesDTO) {
+        logger.info("Converting List EmployeeDTO to List Employee");
         return employeesDTO
                 .stream()
                 .map(this::toEmployee)

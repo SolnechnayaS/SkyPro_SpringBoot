@@ -21,6 +21,8 @@ POST http://localhost:8080/admin/employees/report
 POST http://localhost:8080/admin/users/create
 ### Создать нового пользователя
 
+GET http://localhost:8080/admin/appInfo
+
 
 ###Запросы, доступные для всех Пользователей:
 

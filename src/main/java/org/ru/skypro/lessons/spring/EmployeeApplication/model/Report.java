@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CollectionId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Data
 @AllArgsConstructor
@@ -12,6 +14,9 @@ import org.hibernate.annotations.CollectionId;
 @Entity
 @Table(name = "report")
 public class Report {
+
+    private static final Logger logger = LoggerFactory.getLogger(Report.class);
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "report_id")
@@ -37,6 +42,7 @@ public class Report {
             String filePath) {
 //        this.jsonTextReport = jsonTextReport;
         this.filePath = filePath;
+        logger.info("Создан отчет");
     }
 
 }

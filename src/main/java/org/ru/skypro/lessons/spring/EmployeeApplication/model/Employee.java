@@ -5,9 +5,8 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.lang.model.element.ModuleElement;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @AllArgsConstructor
@@ -16,6 +15,8 @@ import java.util.List;
 @Table (name = "employees")
 @Data
 public class Employee {
+
+    private static final Logger logger = LoggerFactory.getLogger(Employee.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
