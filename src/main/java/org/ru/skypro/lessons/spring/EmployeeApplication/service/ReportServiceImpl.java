@@ -74,6 +74,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public ResponseEntity<Resource> saveReportStatisticsDivision(ReportStatisticsDivision reportStatisticsDivision) throws IOException {
+        logger.info("Serialize and Write to String Report Statistics Division");
         String jsonTextReport = serializeReportStatisticDivision(reportStatisticsDivision);
 
         String fileName = "StatisticDivision_" + reportStatisticsDivision.getDivisionName().replace(" ", "_") + "_DT" + LocalDateTime.now() +
@@ -89,11 +90,12 @@ public class ReportServiceImpl implements ReportService {
 //                jsonTextReport,
                 String.valueOf(path));
 
+        logger.info("save report");
         reportRepository.save(report);
+
         Long lastReportId = reportRepository.findLastReportId();
 
-        System.out.println("Отчет с report_id=" + lastReportId +
-                " сохранен в базу данных");
+        logger.info("Report with report_id=" + lastReportId +" saved to the database");
 
         Resource resource = new ByteArrayResource(jsonTextReport.getBytes(), "Отчет " + fileName);
 
@@ -119,12 +121,12 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public ResponseEntity<Resource> downloadReportFile(Integer reportId) throws IOException {
         try {
+            logger.info("find File Path By Report Id");
             String filePath = reportRepository.findFilePathByReportId(reportId);
 
             Path path = Path.of(filePath);
 
-            System.out.println("Файл существует=" + Files.exists(path) + ". Имя файла " + path.getFileName());
-            logger.info("find File Path By Report Id");
+            logger.info("The file exists=" + Files.exists(path) + ". File name=" + path.getFileName());
 
             Resource resource = new ByteArrayResource(Files.readAllBytes(path));
 
