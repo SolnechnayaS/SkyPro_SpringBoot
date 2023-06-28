@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     public void addUser(AuthUser user) {
         String userName = user.getUsername();
         if (userRepository.findByUsername(userName) == null) {
-            userRepository.save(user);
             logger.info("add User="+userName);
+            userRepository.save(user);
         } else {
             new ResponseEntity<>("Пользователь username=" + userName +
                     " уже есть в базе данных", HttpStatus.BAD_REQUEST);
