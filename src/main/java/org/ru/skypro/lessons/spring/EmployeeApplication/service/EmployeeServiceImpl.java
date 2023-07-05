@@ -255,8 +255,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         allEmployeesDTOToEmployee(uploadListEmployeeDTO)
                 .forEach(this::addEmployee);
 
-        System.out.println("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
         logger.info("upload Employees From File "+multipartFile.getOriginalFilename());
+        logger.info("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
+
     }
 
     @Override
