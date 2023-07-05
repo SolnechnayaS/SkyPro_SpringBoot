@@ -1,0 +1,87 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: MorozovaSA
+      changes:
+        - createTable:
+            tableName: employees
+            columns:
+              - column:
+                  name: employee_id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: salary
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: position_id
+                  type: bigint
+              - column:
+                  name: division_id
+                  type: bigint
+
+  - changeSet:
+      id: 2
+      author: MorozovaSA
+      changes:
+        - createTable:
+            tableName: position
+            columns:
+              - column:
+                  name: position_id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: position_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 3
+      author: MorozovaSA
+      changes:
+        - createTable:
+            tableName: division
+            columns:
+              - column:
+                  name: division_id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: division_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 4
+      author: MorozovaSA
+      changes:
+        - createTable:
+            tableName: report
+            columns:
+              - column:
+                  name: report_id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: file_path
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
