@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: MorozovaSA
+      changes:
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: authority
+                  type: varchar(100)
+                  constraints:
+                    primaryKey: true
+
+  - changeSet:
+      id: 2
+      author: MorozovaSA
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  type: varchar(100)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: password
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: authority
+                  type: varchar(100)
