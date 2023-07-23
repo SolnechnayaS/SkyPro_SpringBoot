@@ -87,4 +87,10 @@ public class Employee {
     public void setDivision(Division division) {
         this.division = division;
     }
+
+    public Employee(Long id, String name, Double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
 }

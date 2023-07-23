@@ -37,13 +37,8 @@ public class EmployeeController {
         return employeeService.allEmployeesToEmployeesDTO(employeeService.findAllEmployees());
     }
 
-    @GetMapping("/{id}")
-    public EmployeeDTO readEmployeeById(@PathVariable Integer id) {
-        return employeeService.getEmployeeById(id);
-    }
-
     @GetMapping("/salary/HigherThan")
-    public List<EmployeeFullInfo> salaryHigherThan(@RequestParam(value = "salary", defaultValue = "0") Integer salary) {
+    public List<EmployeeFullInfo> salaryHigherThan(@RequestParam(value = "salary", defaultValue = "0") Double salary) {
         return employeeService.salaryHigherThan(salary);
     }
 
@@ -58,48 +53,21 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}/fullInfo")
-    public EmployeeFullInfo readEmployeeByIdFullInfo(@PathVariable Integer id) {
+    public EmployeeFullInfo readEmployeeByIdFullInfo(@PathVariable Long id) {
         return employeeService.getEmployeeFullInfoById(id);
     }
-
     @GetMapping("/page")
     public List<EmployeeFullInfo> getEmployeeWithPaging(@RequestParam(value = "page", defaultValue = "1") Integer pageIndex, @RequestParam(value = "size", defaultValue = "10", required = false) int unitPerPage) {
         return employeeService.getEmployeeFullInfoWithPaging(pageIndex, unitPerPage);
     }
-
-    @GetMapping("/view")
-    public List<EmployeeView> findAllEmployeesView() {
-        return employeeService.findAllEmployeesView();
-    }
-
     @GetMapping("/fullInfo")
     public List<EmployeeFullInfo> findAllEmployeesFullInfo() {
         return employeeService.findAllEmployeesFullInfo();
-    }
-
-    @GetMapping("/info")
-    public List<EmployeeInfo> findAllEmployeeInfo() {
-        return employeeService.findAllEmployeesInfo();
-    }
-
-    @GetMapping("/salary/max")
-    public Integer getMaxSalary() {
-        return employeeService.getMaxSalary();
     }
 
     @GetMapping("/report/{id}")
     public ResponseEntity<Resource> downloadReportFile(@PathVariable ("id") Integer reportId) throws IOException {
         return reportService.downloadReportFile(reportId);
     }
-
-//    @GetMapping("/employees/report")
-//    public void saveReportStatisticsAllDivisions() {
-//        reportService.saveReportStatisticsAllDivisions();
-//    }
-//
-//    @GetMapping("/employees/report/division")
-//    public void saveReportStatisticsByDivision(@RequestParam ("id") Integer divisionId) throws IOException {
-//        reportService.saveReportStatisticsDivision(reportService.reportStatisticsByDivision(divisionId));
-//    }
 
 }
