@@ -11,19 +11,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface EmployeeRepository extends CrudRepository<Employee, Integer>,
-        PagingAndSortingRepository<Employee, Integer>{
+public interface EmployeeRepository extends CrudRepository<Employee, Long>,
+        PagingAndSortingRepository<Employee, Long>{
 
     @Query(value = "SELECT * FROM employees",
             nativeQuery = true)
     List<Employee> findAllEmployee();
-    @Query(value = "SELECT * FROM employees",
-            nativeQuery = true)
-    List<EmployeeView> findAllEmployeeView();
-
-    @Query(value = "SELECT * FROM employees",
-            nativeQuery = true)
-    List<EmployeeInfo> findAllEmployeeInfo();
 
     @Query("SELECT new org.ru.skypro.lessons.spring.EmployeeApplication.model.projections." +
             "EmployeeFullInfo(e.name , e.salary , p.positionName) " +
@@ -33,11 +26,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>,
 
     @Query(value = "SELECT * FROM employees WHERE employee_id= :id",
             nativeQuery = true)
-    Employee getEmployeeById(@Param("id") Integer id);
-
-    @Query(value = "SELECT MAX(salary) FROM employees;",
-            nativeQuery = true)
-    Integer maxSalary();
+    Employee getEmployeeById(@Param("id") Long id);
 
     @Query("SELECT new org.ru.skypro.lessons.spring.EmployeeApplication.model.projections." +
             "EmployeeFullInfo(e.name , e.salary , p.positionName) " +
@@ -50,8 +39,8 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>,
             "EmployeeFullInfo(e.name , e.salary , p.positionName) " +
             "FROM Employee e join fetch Position p " +
             "WHERE e.position = p " +
-            "AND e.salary> :salary")
-    List<EmployeeFullInfo> salaryHigherThan(@Param("salary") Integer salary);
+            "AND e.salary>= :salary")
+    List<EmployeeFullInfo> salaryHigherThan(@Param("salary") Double salary);
 
     @Query(value = "SELECT * FROM employees WHERE division_id= :divisionId",
             nativeQuery = true)

@@ -45,12 +45,12 @@ public class AdminEmployeeController {
     }
 
     @PutMapping("/employees/{id}")
-    public void readEmployeeById(@PathVariable("id") Integer id, @RequestBody Employee employeeNew) {
+    public void readEmployeeById(@PathVariable("id") Long id, @RequestBody Employee employeeNew) {
         employeeService.addEmployee(employeeService.editEmployeeById(id, employeeNew));
     }
 
     @DeleteMapping("/employees/{id}")
-    public void deleteEmployeeById(@PathVariable int id) {
+    public void deleteEmployeeById(@PathVariable Long id) {
         employeeService.deleteEmployeeById(id);
     }
 

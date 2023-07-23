@@ -1,13 +1,9 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.service;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Report;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.ReportStatisticsDivision;
-import org.ru.skypro.lessons.spring.EmployeeApplication.repository.DivisionRepository;
-import org.ru.skypro.lessons.spring.EmployeeApplication.repository.EmployeeRepository;
-import org.ru.skypro.lessons.spring.EmployeeApplication.repository.PositionRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.ReportRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,19 +25,9 @@ import java.util.List;
 @Service
 public class ReportServiceImpl implements ReportService {
     private static final Logger logger = LoggerFactory.getLogger(ReportServiceImpl.class);
-    private final EmployeeRepository employeeRepository;
-
-    private final PositionRepository positionRepository;
-
-    private final DivisionRepository divisionRepository;
-
     private final ReportRepository reportRepository;
 
-
-    public ReportServiceImpl(EmployeeRepository employeeRepository, PositionRepository positionRepository, DivisionRepository divisionRepository, ReportRepository reportRepository) {
-        this.employeeRepository = employeeRepository;
-        this.positionRepository = positionRepository;
-        this.divisionRepository = divisionRepository;
+    public ReportServiceImpl(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
     }
 

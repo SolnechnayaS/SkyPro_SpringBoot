@@ -28,7 +28,6 @@ import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-
     private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
     private final EmployeeRepository employeeRepository;
 
@@ -49,23 +48,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeView> findAllEmployeesView() {
-        logger.info("find All Employees (EmployeeView)");
-        return employeeRepository.findAllEmployeeView();
-    }
-
-    @Override
     public List<EmployeeFullInfo> findAllEmployeesFullInfo() {
         logger.info("find All Employees (EmployeeFullInfo)");
         return employeeRepository.findAllEmployeeFullInfo();
     }
-
-    @Override
-    public List<EmployeeInfo> findAllEmployeesInfo() {
-        logger.info("find All Employees (EmployeeInfo)");
-        return employeeRepository.findAllEmployeeInfo();
-    }
-
 
     @Override
     public List<EmployeeDTO> allEmployeesToEmployeesDTO(List<Employee> employees) {
@@ -77,13 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Integer getMaxSalary() {
-        logger.info("get Max Salary");
-        return employeeRepository.maxSalary();
-    }
-
-    @Override
-    public EmployeeFullInfo getEmployeeFullInfoById(Integer id) {
+    public EmployeeFullInfo getEmployeeFullInfoById(Long id) {
         logger.info("get Employee (EmployeeFullInfo) By Id");
         return EmployeeFullInfo.fromEmployee(employeeRepository.getEmployeeById(id));
     }
@@ -92,12 +72,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeFullInfo> getEmployeeFullInfoWithMaxSalary() {
         logger.info("get Employee (EmployeeFullInfo) With Max Salary");
         return employeeRepository.getEmployeeFullInfoWithMaxSalary();
-    }
-
-    @Override
-    public Position findByPositionId(Long positionId) {
-        logger.info("find Position By Id");
-        return positionRepository.findByPositionId(positionId);
     }
 
     @Override
@@ -116,8 +90,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         return listAllEmployeesByPosition;
     }
 
-    public List<EmployeeFullInfo> salaryHigherThan(Integer salary) {
-        logger.info("search for employees with a salary above the level="+salary);
+    public List<EmployeeFullInfo> salaryHigherThan(Double salary) {
+        logger.info("search for employees with a salary above the level=" + salary);
         return employeeRepository.salaryHigherThan(salary);
     }
 
@@ -137,15 +111,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployeeWithPaging(int pageIndex, int unitPerPage) {
-        PageRequest employeeOfConcretePage = PageRequest.of(pageIndex, unitPerPage);
-        Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
-        logger.info("get Employee With Paging");
-        return page.stream()
-                .toList();
-    }
-
-    @Override
     public List<EmployeeFullInfo> getEmployeeFullInfoWithPaging(int pageIndex, int unitPerPage) {
         PageRequest employeeOfConcretePage = PageRequest.of(pageIndex, unitPerPage);
         Page<Employee> page = employeeRepository.findAll(employeeOfConcretePage);
@@ -156,9 +121,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .toList();
     }
 
-
     @Override
-    public void deleteEmployeeById(int id) {
+    public void deleteEmployeeById(Long id) {
         logger.info("delete Employee By Id");
         employeeRepository.deleteById(id);
     }
@@ -170,13 +134,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDTO getEmployeeById(Integer id) {
-        logger.info("get Employee By Id");
-        return EmployeeDTO.fromEmployee(employeeRepository.getEmployeeById(id));
-    }
-
-    @Override
-    public Employee editEmployeeById(Integer id, Employee employeeNew) {
+    public Employee editEmployeeById(Long id, Employee employeeNew) {
         Employee employeeOld = employeeRepository.getEmployeeById(id);
         String nameNew = employeeNew.getName();
         Double salaryNew = employeeNew.getSalary();
@@ -198,36 +156,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeOld;
     }
 
-    @Override
-    public String serializeEmployee(Employee employee) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        logger.info("serialize Employee");
-        return objectMapper.writeValueAsString(employee);
-    }
-
-    @Override
-    public Employee deserializeEmployee(String employee) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        logger.info("deserialize Employee");
-        return objectMapper.readValue(employee, Employee.class);
-    }
-
-    @Override
-    public String serializeEmployeeDTO(EmployeeDTO employeeDTO) throws JsonProcessingException {
+    private String serializeEmployeeDTO(EmployeeDTO employeeDTO) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         logger.info("serialize EmployeeDTO");
         return objectMapper.writeValueAsString(employeeDTO);
     }
 
-    @Override
-    public EmployeeDTO deserializeEmployeeDTO(String employeeDTO) throws JsonProcessingException {
+    private EmployeeDTO deserializeEmployeeDTO(String employeeDTO) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         logger.info("deserialize EmployeeDTO");
         return objectMapper.readValue(employeeDTO, EmployeeDTO.class);
     }
 
-    @Override
-    public List<EmployeeDTO> deserializeFileWithListEmployeeDTO(String fileName) throws IOException {
+    private List<EmployeeDTO> deserializeFileWithListEmployeeDTO(String fileName) throws IOException {
         File file = new File(fileName);
         ObjectMapper objectMapper = new ObjectMapper();
         logger.info("deserialize File With List EmployeeDTO");
@@ -235,8 +176,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         });
     }
 
-    @Override
-    public List<EmployeeDTO> deserializeFileToEmployeeDTO(String fileName) throws IOException {
+    private List<EmployeeDTO> deserializeFileToEmployeeDTO(String fileName) throws IOException {
         File file = new File(fileName);
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -255,13 +195,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         allEmployeesDTOToEmployee(uploadListEmployeeDTO)
                 .forEach(this::addEmployee);
 
-        logger.info("upload Employees From File "+multipartFile.getOriginalFilename());
+        logger.info("upload Employees From File " + multipartFile.getOriginalFilename());
         logger.info("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
 
     }
 
-    @Override
-    public Employee toEmployee(EmployeeDTO employeeDTO) {
+    private Employee toEmployee(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         employee.setId(employeeDTO.getId());
         employee.setName(employeeDTO.getName());
@@ -272,8 +211,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
-    @Override
-    public List<Employee> allEmployeesDTOToEmployee(List<EmployeeDTO> employeesDTO) {
+    private List<Employee> allEmployeesDTOToEmployee(List<EmployeeDTO> employeesDTO) {
         logger.info("Converting List EmployeeDTO to List Employee");
         return employeesDTO
                 .stream()
