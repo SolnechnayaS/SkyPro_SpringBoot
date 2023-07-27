@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.nio.file.Path;
 import java.util.List;
 
-public interface ReportRepository extends CrudRepository<Report, Integer>,
-        PagingAndSortingRepository<Report, Integer> {
+public interface ReportRepository extends CrudRepository<Report, Long>,
+        PagingAndSortingRepository<Report, Long> {
 
     @Query(value = "SELECT MAX(report_id) FROM report",
             nativeQuery = true)
@@ -29,9 +29,9 @@ public interface ReportRepository extends CrudRepository<Report, Integer>,
             "AVG(e.salary)) " +
             "from Employee e " +
             "join fetch Division d " +
-            "WHERE d.divisionId= :divisionId " +
+            "WHERE e.division=d AND d.divisionId = :divisionId " +
             "group by d.divisionName")
-    ReportStatisticsDivision reportStatisticsByDivision(@Param("divisionId") Integer divisionId);
+    ReportStatisticsDivision reportStatisticsByDivision(@Param("divisionId") Long divisionId);
 
     @Query("SELECT new org.ru.skypro.lessons.spring.EmployeeApplication.model.projections." +
             "ReportStatisticsDivision(d.divisionName, " +
@@ -42,12 +42,17 @@ public interface ReportRepository extends CrudRepository<Report, Integer>,
             "AVG(e.salary)) " +
             "from Employee e " +
             "join fetch Division d " +
+            "WHERE e.division=d " +
             "group by d.divisionName")
     List<ReportStatisticsDivision> reportStatisticsAllDivisions();
 
     @Query(value = "SELECT file_path FROM report " +
             "WHERE report_id= :reportId",
             nativeQuery = true)
-    String findFilePathByReportId(@Param ("reportId") Integer reportId);
+    String findFilePathByReportId(@Param ("reportId") Long reportId);
 
+    @Query(value = "SELECT * FROM report " +
+            "WHERE report_id=(Select MAX(report_id) from report)",
+            nativeQuery = true)
+    Report findLastReport();
 }

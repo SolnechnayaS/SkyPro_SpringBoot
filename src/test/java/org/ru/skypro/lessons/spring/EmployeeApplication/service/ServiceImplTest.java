@@ -17,23 +17,30 @@ import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.ReportStatisticsDivision;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.DivisionRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.EmployeeRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.PositionRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.ReportRepository;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.ru.skypro.lessons.spring.EmployeeApplication.constants.EmployeeServiceTestConstant.*;
-import static org.ru.skypro.lessons.spring.EmployeeApplication.constants.EmployeeServiceTestConstant.employeeFullInfo4;
 
 @ExtendWith(MockitoExtension.class)
 class ServiceImplTest {
@@ -75,7 +82,7 @@ class ServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("paramsForTestAllEmployeesToEmployeesDTO")
-    public void testAllEmployeesToEmployeesDTO(List <Employee> employeeList, List<EmployeeDTO> employeeDTOList) {
+    public void testAllEmployeesToEmployeesDTO(List<Employee> employeeList, List<EmployeeDTO> employeeDTOList) {
 
         assertIterableEquals(employeeDTOList, employeeServiceOut.allEmployeesToEmployeesDTO(employeeList));
 
@@ -149,9 +156,6 @@ class ServiceImplTest {
         when(positionRepositoryMock.findByPositionId(positionId))
                 .thenReturn(position);
 
-        position.setEmployee(employee);
-        //Вопрос к наставнику - корректно ли так делать? В классе с тестовыми константами не могу использовать геттеры и сеттеры (Почему?)
-
         assertIterableEquals(employeeFullInfoList, employeeServiceOut.getEmployeeFullInfoByPosition(positionId));
     }
 
@@ -204,8 +208,8 @@ class ServiceImplTest {
     @ParameterizedTest
     @MethodSource("paramsAddRemoveEmployee")
     void testDeleteEmployeeById(Employee employee) {
-
-    //не понимаю как сделать тест для данного метода
+        employeeServiceOut.deleteEmployeeById(employee.getId());
+        verify(employeeRepositoryMock, times(1)).deleteById(employee.getId());
 
     }
 
@@ -246,10 +250,53 @@ class ServiceImplTest {
     }
 
     @Test
-    void testUploadEmployeesFromFile() throws JsonProcessingException {
+    void testUploadEmployeesFromFile() throws IOException {
+        File testFile = new File("src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/fileToUpload.json");
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", new FileInputStream(testFile));
 
-//Здесь тоже нужна помощь
+        assertIterableEquals(listNewEmployeesDTO, employeeServiceOut.uploadEmployeesFromFile(mockMultipartFile));
 
+    }
+
+    @Test
+    void testSaveReportStatisticsAllDivisions() throws IOException {
+        assertEquals(saveReportStatisticsAllDivisions, reportServiceOut.saveReportStatisticsAllDivisions(allDivisionReportStatistics));
+
+    // этот тест завершается без ошибок, хотя формально такой же как и следующий
+    }
+
+    @Test
+    void testSaveReportStatisticsDivision() throws IOException {
+        assertEquals(saveReportStatisticsMarketing, reportServiceOut.saveReportStatisticsDivision(reportStatisticsDivision1));
+
+//    Здесь при запуске вот такая ошибка:
+//        org.opentest4j.AssertionFailedError: expected: org.springframework.http.ResponseEntity@2042ccce<<200 OK OK,Byte array resource [resource loaded from byte array],[Content-Disposition:"attachment; filename="StatisticDivision_Marketing_DT2023-07-28T00:00.json"", Content-Type:"application/json"]>> but was: org.springframework.http.ResponseEntity@20de05e5<<200 OK OK,Byte array resource [resource loaded from byte array],[Content-Disposition:"attachment; filename="StatisticDivision_Marketing_DT2023-07-28T00:00.json"", Content-Type:"application/json"]>>
+//        Expected :<200 OK OK,Byte array resource [resource loaded from byte array],[Content-Disposition:"attachment; filename="StatisticDivision_Marketing_DT2023-07-28T00:00.json"", Content-Type:"application/json"]>
+//        Actual   :<200 OK OK,Byte array resource [resource loaded from byte array],[Content-Disposition:"attachment; filename="StatisticDivision_Marketing_DT2023-07-28T00:00.json"", Content-Type:"application/json"]>
+//
+        //не вижу разницы между Expected и Actual
+
+    }
+
+    @Test
+    void testDownloadReportFile_NoSuchFile() throws IOException {
+        when(reportRepositoryMock.findFilePathByReportId(1L))
+                .thenReturn(String.valueOf(nonExistentReport));
+
+        assertThrows(NoSuchFileException.class, () -> reportServiceOut.downloadReportFile(1L));
+    }
+
+    @Test
+    void testDownloadReportFile_OkFile() throws IOException {
+        when(reportRepositoryMock.findFilePathByReportId(2L))
+                .thenReturn(newReportMarketing.getFilePath());
+        assertEquals(saveReportStatisticsMarketing ,reportServiceOut.downloadReportFile(2L));
+
+        //    Здесь при запуске вот такая ошибка:
+//        org.opentest4j.AssertionFailedError: expected: org.springframework.http.ResponseEntity@62ce72ff<<200 OK OK,Byte array resource [resource loaded from byte array],[Content-Disposition:"attachment; filename="StatisticDivision_Marketing_DT2023-07-28T00:00.json"", Content-Type:"application/json"]>> but was: org.springframework.http.ResponseEntity@58a63629<<200 OK OK,Byte array resource [resource loaded from byte array],[Content-Disposition:"attachment; filename="StatisticDivision_Marketing_DT2023-07-28T00:00.json"", Content-Type:"application/json"]>>
+//        Expected :<200 OK OK,Byte array resource [resource loaded from byte array],[Content-Disposition:"attachment; filename="StatisticDivision_Marketing_DT2023-07-28T00:00.json"", Content-Type:"application/json"]>
+//        Actual   :<200 OK OK,Byte array resource [resource loaded from byte array],[Content-Disposition:"attachment; filename="StatisticDivision_Marketing_DT2023-07-28T00:00.json"", Content-Type:"application/json"]>
+        //не вижу разницы между Expected и Actual
     }
 
 }
