@@ -185,19 +185,35 @@ public class EmployeeServiceImpl implements EmployeeService {
         });
     }
 
+//    @Override
+//    public void uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException {
+//        byte[] inputStream = multipartFile.getBytes();
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        List<EmployeeDTO> uploadListEmployeeDTO = objectMapper.readValue(inputStream, new TypeReference<>() {
+//        });
+//        allEmployeesDTOToEmployee(uploadListEmployeeDTO)
+//                .forEach(this::addEmployee);
+//
+//        logger.info("upload Employees From File " + multipartFile.getOriginalFilename());
+//        logger.info("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
+//
+//    }
+
     @Override
-    public void uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException {
+    public List<EmployeeDTO> uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException {
         byte[] inputStream = multipartFile.getBytes();
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<EmployeeDTO> uploadListEmployeeDTO = objectMapper.readValue(inputStream, new TypeReference<>() {
         });
-        allEmployeesDTOToEmployee(uploadListEmployeeDTO)
-                .forEach(this::addEmployee);
+        List<Employee> uploadListEmployee = allEmployeesDTOToEmployee(uploadListEmployeeDTO).stream()
+                .peek(this::addEmployee)
+                .toList();
 
         logger.info("upload Employees From File " + multipartFile.getOriginalFilename());
         logger.info("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
-
+        return uploadListEmployeeDTO;
     }
 
     private Employee toEmployee(EmployeeDTO employeeDTO) {

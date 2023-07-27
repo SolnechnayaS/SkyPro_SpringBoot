@@ -62,13 +62,13 @@ public class AdminEmployeeController {
         employeeService.uploadEmployeesFromFile(file);
     }
 
-    @PostMapping("/employees/report")
-    public void saveReportStatisticsAllDivisions() {
-        reportService.saveReportStatisticsAllDivisions();
+    @GetMapping("/employees/report")
+    public void saveReportStatisticsAllDivisions() throws IOException {
+        reportService.saveReportStatisticsAllDivisions(reportService.reportStatisticsAllDivisions());
     }
 
-    @PostMapping("/employees/report/division")
-    public void saveReportStatisticsByDivision(@RequestParam ("id") Integer divisionId) throws IOException {
+    @GetMapping("/employees/report/division")
+    public void saveReportStatisticsByDivision(@RequestParam ("id") Long divisionId) throws IOException {
         reportService.saveReportStatisticsDivision(reportService.reportStatisticsByDivision(divisionId));
     }
 

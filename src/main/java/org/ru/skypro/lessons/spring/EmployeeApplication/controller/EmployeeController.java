@@ -66,7 +66,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/report/{id}")
-    public ResponseEntity<Resource> downloadReportFile(@PathVariable ("id") Integer reportId) throws IOException {
+    public ResponseEntity<Resource> downloadReportFile(@PathVariable ("id") Long reportId) throws IOException {
         return reportService.downloadReportFile(reportId);
     }
 
