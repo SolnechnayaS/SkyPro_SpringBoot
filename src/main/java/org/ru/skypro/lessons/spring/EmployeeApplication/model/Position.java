@@ -28,4 +28,8 @@ public class Position {
     @OneToMany (fetch =FetchType.EAGER, mappedBy = "position")
     private List<Employee> employee;
 
+    public Position(Long positionId, String positionName) {
+        this.positionId = positionId;
+        this.positionName = positionName;
+    }
 }

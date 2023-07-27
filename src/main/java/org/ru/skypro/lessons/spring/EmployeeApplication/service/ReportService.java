@@ -12,18 +12,18 @@ import java.util.List;
 
 public interface ReportService {
 
-
-    String serializeReportStatisticDivision(ReportStatisticsDivision reportStatisticsDivision) throws JsonProcessingException;
-
-    ReportStatisticsDivision deserializeReportStatisticDivision(String reportStatisticDivision) throws JsonProcessingException;
+//
+//    String serializeReportStatisticDivision(ReportStatisticsDivision reportStatisticsDivision) throws JsonProcessingException;
+//
+//    ReportStatisticsDivision deserializeReportStatisticDivision(String reportStatisticDivision) throws JsonProcessingException;
 
     ResponseEntity<Resource> saveReportStatisticsDivision(ReportStatisticsDivision reportStatisticsDivision) throws IOException;
 
     List<ReportStatisticsDivision> reportStatisticsAllDivisions();
 
-    ReportStatisticsDivision reportStatisticsByDivision(Integer divisionId);
+    ReportStatisticsDivision reportStatisticsByDivision(Long divisionId);
 
-    void saveReportStatisticsAllDivisions();
+    ResponseEntity<Resource>  saveReportStatisticsAllDivisions(List<ReportStatisticsDivision> reportStatisticsDivision)throws IOException;
 
-    ResponseEntity<Resource> downloadReportFile(Integer reportId) throws IOException;
+    ResponseEntity<Resource> downloadReportFile(Long reportId) throws IOException;
 }

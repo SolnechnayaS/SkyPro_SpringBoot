@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "White Joe",
+    "salary": 94686.0,
+    "divisionId": 4,
+    "positionId": 14
+  },
+  {
+    "id": 2,
+    "name": "Frazier Amanda",
+    "salary": 85850.2,
+    "divisionId": 5,
+    "positionId": 16
+  }
+]

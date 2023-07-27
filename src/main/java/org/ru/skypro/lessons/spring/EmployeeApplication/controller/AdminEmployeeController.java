@@ -6,6 +6,8 @@ import org.ru.skypro.lessons.spring.EmployeeApplication.security.AuthUser;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.EmployeeService;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.ReportService;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminEmployeeController {
+    private static final Logger logger = LoggerFactory.getLogger(AdminEmployeeController.class);
 
     private final EmployeeService employeeService;
 
@@ -42,30 +45,30 @@ public class AdminEmployeeController {
     }
 
     @PutMapping("/employees/{id}")
-    public void readEmployeeById(@PathVariable("id") Integer id, @RequestBody Employee employeeNew) {
+    public void readEmployeeById(@PathVariable("id") Long id, @RequestBody Employee employeeNew) {
         employeeService.addEmployee(employeeService.editEmployeeById(id, employeeNew));
     }
 
     @DeleteMapping("/employees/{id}")
-    public void deleteEmployeeById(@PathVariable int id) {
+    public void deleteEmployeeById(@PathVariable Long id) {
         employeeService.deleteEmployeeById(id);
     }
 
 
     @PostMapping(value = "/employees/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void uploadFile(@RequestBody MultipartFile file) throws IOException {
-        System.out.println("Файл загружен. Имя файла: " + file.getOriginalFilename() +
+        logger.info("Файл загружен. Имя файла: " + file.getOriginalFilename() +
                 " Размер файла: " + file.getSize() + " байт");
         employeeService.uploadEmployeesFromFile(file);
     }
 
-    @PostMapping("/employees/report")
-    public void saveReportStatisticsAllDivisions() {
-        reportService.saveReportStatisticsAllDivisions();
+    @GetMapping("/employees/report")
+    public void saveReportStatisticsAllDivisions() throws IOException {
+        reportService.saveReportStatisticsAllDivisions(reportService.reportStatisticsAllDivisions());
     }
 
-    @PostMapping("/employees/report/division")
-    public void saveReportStatisticsByDivision(@RequestParam ("id") Integer divisionId) throws IOException {
+    @GetMapping("/employees/report/division")
+    public void saveReportStatisticsByDivision(@RequestParam ("id") Long divisionId) throws IOException {
         reportService.saveReportStatisticsDivision(reportService.reportStatisticsByDivision(divisionId));
     }
 
