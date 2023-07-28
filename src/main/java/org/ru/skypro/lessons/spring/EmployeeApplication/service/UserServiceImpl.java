@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -47,6 +50,25 @@ public class UserServiceImpl implements UserService {
             logger.error("User id=" + id +
                     "missing in the database");
         }
+    }
+
+    @Override
+    public List<AuthUser> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public AuthUser editUser(long id, AuthUser userDTO) {
+        Optional<AuthUser> user = userRepository.findById(id);
+        AuthUser updateUser = user.stream().toList().get(0);
+        updateUser.setUsername(userDTO.getUsername());
+        return userRepository.save(updateUser);
+    }
+
+    @Override
+    public void deleteUser(long id) {
+        Optional<AuthUser> user = userRepository.findById(id);
+        userRepository.delete(user.stream().toList().get(0));
     }
 
 

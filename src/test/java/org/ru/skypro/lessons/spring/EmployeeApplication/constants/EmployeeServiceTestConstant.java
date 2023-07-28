@@ -167,11 +167,11 @@ public class EmployeeServiceTestConstant {
 
     public static final String fileNameReportAll = String.valueOf(reportAll.getFileName());
     public static final String fileNameReportMarketing = String.valueOf(reportMarketing.getFileName());
-    public static final ReportStatisticsDivision reportStatisticsDivision1 = new ReportStatisticsDivision("Marketing", 31L, 2806023.15, 143818.65, 50180.26, 90516.88);
-    public static final ReportStatisticsDivision reportStatisticsDivision2 = new ReportStatisticsDivision("Administration", 6L, 696191.82, 139628.53, 84404.23, 116031.97);
-    public static final ReportStatisticsDivision reportStatisticsDivision3 = new ReportStatisticsDivision("Finance", 26L, 2537096.24, 139087.25, 51938.23, 97580.62);
-    public static final ReportStatisticsDivision reportStatisticsDivision4 = new ReportStatisticsDivision("Sales", 11L, 1099487.86, 140791.39, 54499.67, 99953.44);
-    public static final ReportStatisticsDivision reportStatisticsDivision5 = new ReportStatisticsDivision("IT", 26L, 2534634.99, 148891.07, 50752.18, 97485.96);
+    public static final ReportStatisticsDivision reportStatisticsDivision1 = new ReportStatisticsDivision("Marketing",31L,2806023.15,143818.65,50180.26,90516.88);
+    public static final ReportStatisticsDivision reportStatisticsDivision2 = new  ReportStatisticsDivision("Administration", 6L,696191.82,139628.53,84404.23,116031.97);
+    public static final ReportStatisticsDivision reportStatisticsDivision3 = new  ReportStatisticsDivision("Finance", 26L,2537096.24,139087.25,51938.23,97580.62);
+    public static final ReportStatisticsDivision reportStatisticsDivision4 = new  ReportStatisticsDivision("Sales", 11L,1099487.86,140791.39,54499.67,99953.44);
+    public static final ReportStatisticsDivision reportStatisticsDivision5 = new  ReportStatisticsDivision("IT", 26L,2534634.99,148891.07,50752.18,97485.96);
     public static final List<ReportStatisticsDivision> allDivisionReportStatistics = List.of(
             reportStatisticsDivision1,
             reportStatisticsDivision2,
@@ -180,16 +180,26 @@ public class EmployeeServiceTestConstant {
             reportStatisticsDivision5
     );
 
-    public static final Resource resourceReportMarketing = new ByteArrayResource(
-            "\"{divisionName\":\"Marketing\",\"numberEmployees\":31,\"sumSalary\":2806023.15,\"maxSalary\":143818.65,\"minSalary\":50180.26,\"averageSalary\":90516.88}"
-                    .getBytes());
-    public static final Resource resourceReportAllDivision = new ByteArrayResource(
-            ("{\"divisionName\":\"Marketing\",\"numberEmployees\":31,\"sumSalary\":2806023.15,\"maxSalary\":143818.65,\"minSalary\":50180.26,\"averageSalary\":90516.88}," +
-                    "{\"divisionName\":\"Administration\",\"numberEmployees\":6,\"sumSalary\":696191.82,\"maxSalary\":139628.53,\"minSalary\":84404.23,\"averageSalary\":116031.97}," +
-                    "{\"divisionName\":\"Finance\",\"numberEmployees\":26,\"sumSalary\":2537096.24,\"maxSalary\":139087.25,\"minSalary\":51938.23,\"averageSalary\":97580.62}," +
-                    "{\"divisionName\":\"Sales\",\"numberEmployees\":11,\"sumSalary\":1099487.86,\"maxSalary\":140791.39,\"minSalary\":54499.67,\"averageSalary\":99953.44}," +
-                    "{\"divisionName\":\"IT\",\"numberEmployees\":26,\"sumSalary\":2534634.99,\"maxSalary\":148891.07,\"minSalary\":50752.18,\"averageSalary\":97485.96}")
-                    .getBytes());
+    public static Resource resourceReportMarketing;
+
+    static {
+        try {
+            resourceReportMarketing = new ByteArrayResource(Files.readAllBytes(reportMarketing));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static final Resource resourceReportAllDivision;
+
+    static {
+        try {
+            resourceReportAllDivision = new ByteArrayResource(Files.readAllBytes(reportAll));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static final ResponseEntity<Resource> saveReportStatisticsMarketing = ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileNameReportMarketing + "\"")
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -201,5 +211,7 @@ public class EmployeeServiceTestConstant {
             .body(resourceReportAllDivision);
 
     public static final Exception noSuchFileException = new NoSuchFileException("The report with this id does not exist or the file path is incorrect");
+
+
 
 }

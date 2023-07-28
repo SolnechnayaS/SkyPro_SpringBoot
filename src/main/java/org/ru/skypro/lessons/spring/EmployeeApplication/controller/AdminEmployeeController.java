@@ -21,15 +21,11 @@ public class AdminEmployeeController {
     private static final Logger logger = LoggerFactory.getLogger(AdminEmployeeController.class);
 
     private final EmployeeService employeeService;
-
     private final ReportService reportService;
-
-    private final UserService userService;
 
     public AdminEmployeeController(EmployeeService employeeService, ReportService reportService, UserService userService) {
         this.employeeService = employeeService;
         this.reportService = reportService;
-        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -70,11 +66,6 @@ public class AdminEmployeeController {
     @GetMapping("/employees/report/division")
     public void saveReportStatisticsByDivision(@RequestParam ("id") Long divisionId) throws IOException {
         reportService.saveReportStatisticsDivision(reportService.reportStatisticsByDivision(divisionId));
-    }
-
-    @PostMapping("/users/create")
-    public void createNewUser(@RequestBody AuthUser user) {
-        userService.addUser(user);
     }
 
 }
