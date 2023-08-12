@@ -4,13 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
+import org.ru.skypro.lessons.spring.EmployeeApplication.exception.UserNotFoundException;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Division;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
-import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeInfo;
-import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeView;
-import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.ReportStatisticsDivision;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.DivisionRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.EmployeeRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.NameGenerator;
@@ -97,8 +95,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public Employee generateRandomEmployees() {
         Double randomSalary = Math.random() * 100000 + 50000;
-        Integer randomPositionId = (int) (Math.round(Math.random() * 24) + 1);
-        Integer randomDivisionId = (int) (Math.round(Math.random() * 4) + 1);
+        Integer randomPositionId = (int) (Math.round(Math.random() * 4) + 1);
+        Integer randomDivisionId = (int) (Math.round(Math.random() * 2) + 1);
         Position randomPosition = positionRepository.findById(randomPositionId).orElseThrow();
         Division randomDivision = divisionRepository.findById(randomDivisionId).orElseThrow();
         Employee randomEmployee = new Employee();
@@ -123,8 +121,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployeeById(Long id) {
-        logger.info("delete Employee By Id");
-        employeeRepository.deleteById(id);
+        if (employeeRepository.existsById(id)) {
+            logger.info("delete Employee By Id");
+            employeeRepository.deleteById(id);
+        } else {
+            throw new UserNotFoundException();
+        }
     }
 
     @Override
@@ -154,6 +156,36 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         logger.info("edit Employee By Id");
         return employeeOld;
+    }
+
+    @Override
+    public void readEmployeeById(Long id, EmployeeDTO employeeNew) {
+        Employee employeeOld = employeeRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        String nameNew = employeeNew.getName();
+        Double salaryNew = employeeNew.getSalary();
+        Long positionIdNew = employeeNew.getPositionId();
+        Position positionNew = positionRepository.findByPositionId(positionIdNew);
+        Long divisionIdNew = employeeNew.getDivisionId();
+        Division divisionNew = divisionRepository.findByDivisionId(divisionIdNew);
+
+        if (!nameNew.isBlank()) {
+            employeeOld.setName(nameNew);
+        }
+
+        if (salaryNew != 0) {
+            employeeOld.setSalary(salaryNew);
+        }
+
+        if (!(positionNew == null)) {
+            employeeOld.setPosition(positionNew);
+        }
+
+        if (!(divisionNew == null)) {
+            employeeOld.setDivision(divisionNew);
+        }
+
+        logger.info("edit Employee By Id");
+        employeeRepository.save(employeeOld);
     }
 
     private String serializeEmployeeDTO(EmployeeDTO employeeDTO) throws JsonProcessingException {
@@ -201,19 +233,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 //    }
 
     @Override
-    public List<EmployeeDTO> uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException {
+    public List<EmployeeDTO> getEmployeesFromFile(MultipartFile multipartFile) throws IOException {
         byte[] inputStream = multipartFile.getBytes();
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<EmployeeDTO> uploadListEmployeeDTO = objectMapper.readValue(inputStream, new TypeReference<>() {
         });
+        logger.info("upload Employees From File " + multipartFile.getOriginalFilename());
+        return uploadListEmployeeDTO;
+    }
+
+    @Override
+    public void uploadEmployeesFromFile(List<EmployeeDTO> uploadListEmployeeDTO) throws IOException {
         List<Employee> uploadListEmployee = allEmployeesDTOToEmployee(uploadListEmployeeDTO).stream()
                 .peek(this::addEmployee)
                 .toList();
-
-        logger.info("upload Employees From File " + multipartFile.getOriginalFilename());
         logger.info("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
-        return uploadListEmployeeDTO;
     }
 
     private Employee toEmployee(EmployeeDTO employeeDTO) {

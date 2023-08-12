@@ -54,7 +54,8 @@ public class ReportServiceImpl implements ReportService {
 
     private final LocalDateTime localDateTime = LocalDate.now().atStartOfDay();
     private final String fileExtension = ".json";
-    private final String path = "src/main/java/org/ru/skypro/lessons/spring/EmployeeApplication" +
+    private final String path =
+            "src/main/java/org/ru/skypro/lessons/spring/EmployeeApplication" +
             "/REPORTS";
 
     private Report newReport(LocalDateTime localDateTime, String divisionName, String path, String fileExtension) {

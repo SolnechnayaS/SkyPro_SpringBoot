@@ -6694,3 +6694,313 @@ Consider defining a bean of type 'org.springframework.security.core.userdetails.
 00:41:33.744 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
 00:48:54.250 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
 00:51:26.562 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+23:59:02.703 [main] ERROR com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Exception during pool initialization.
+org.postgresql.util.PSQLException: The server requested SCRAM-based authentication, but no password was provided.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.lambda$doAuthentication$4(ConnectionFactoryImpl.java:838)
+	at org.postgresql.core.v3.AuthenticationPluginManager.withPassword(AuthenticationPluginManager.java:81)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:835)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:203)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:253)
+	at org.postgresql.Driver.makeConnection(Driver.java:434)
+	at org.postgresql.Driver.connect(Driver.java:291)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:281)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1816)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1156)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:931)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:733)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:435)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:311)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1305)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1294)
+	at org.ru.skypro.lessons.spring.EmployeeApplication.EmployeeApplication.main(EmployeeApplication.java:13)
+23:59:02.749 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: org.postgresql.util.PSQLException: The server requested SCRAM-based authentication, but no password was provided.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1156)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:931)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:733)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:435)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:311)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1305)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1294)
+	at org.ru.skypro.lessons.spring.EmployeeApplication.EmployeeApplication.main(EmployeeApplication.java:13)
+Caused by: liquibase.exception.DatabaseException: org.postgresql.util.PSQLException: The server requested SCRAM-based authentication, but no password was provided.
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:286)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1816)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	... 18 common frames omitted
+Caused by: org.postgresql.util.PSQLException: The server requested SCRAM-based authentication, but no password was provided.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.lambda$doAuthentication$4(ConnectionFactoryImpl.java:838)
+	at org.postgresql.core.v3.AuthenticationPluginManager.withPassword(AuthenticationPluginManager.java:81)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:835)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:203)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:253)
+	at org.postgresql.Driver.makeConnection(Driver.java:434)
+	at org.postgresql.Driver.connect(Driver.java:291)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:281)
+	... 20 common frames omitted
+00:00:21.896 [http-nio-8080-exec-1] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:00:37.764 [http-nio-8080-exec-5] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:00:58.143 [http-nio-8080-exec-7] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:01:16.727 [http-nio-8080-exec-9] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:04:10.767 [http-nio-8080-exec-1] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:23:29.446 [http-nio-8080-exec-7] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:25:42.930 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+00:40:02.311 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:48:48.273 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+17:19:58.752 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+17:21:18.212 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:44:27.187 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+23:45:00.923 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+23:45:00.930 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:46:20.621 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+23:46:20.626 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:48:49.232 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:49:25.123 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:50:23.222 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:51:34.328 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+23:51:34.333 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:51:34.381 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:01:00.718 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:02:13.913 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:02:13.918 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:02:45.516 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:02:45.521 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:14:08.597 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:14:43.595 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:17:20.628 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:17:20.704 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:17:20.708 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:17:20.763 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:17:20.818 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:17:20.822 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:18:17.734 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:18:17.792 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:18:17.794 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:18:17.836 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:18:17.878 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:18:17.880 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:19:06.664 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:19:06.746 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:19:06.749 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:19:06.811 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:19:06.871 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:19:06.875 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:20:17.441 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:20:17.500 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:20:17.502 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:20:17.543 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:20:17.586 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:20:17.589 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:21:12.012 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:22:37.951 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:22:38.032 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:22:38.036 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:22:38.091 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:22:38.152 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:22:38.155 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:39:44.047 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:42:50.024 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:08:17.225 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:20:42.159 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:26:52.161 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:28:00.082 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:30:46.059 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:31:07.891 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:31:41.549 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:32:55.740 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:33:41.947 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:34:59.009 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:37:47.484 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:39:34.274 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:40:18.955 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:49:39.894 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+19:39:40.950 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+19:45:30.707 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+19:50:56.464 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+20:06:32.573 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+20:07:56.106 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+20:09:31.298 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+20:38:52.139 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+20:42:18.030 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+20:51:11.831 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+20:51:52.812 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+20:52:38.966 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+20:53:27.737 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:00:44.228 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:00:44.235 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:01:20.587 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:12:45.797 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:12:45.804 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:13:51.576 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:13:51.582 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:14:16.357 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:14:16.425 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:14:16.427 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:14:16.477 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:14:16.527 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:14:16.529 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:17:44.814 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:17:44.873 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:17:44.875 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:17:44.918 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:17:44.964 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:17:44.966 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:32:40.612 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:33:20.285 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:34:15.353 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:34:15.358 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:39:13.797 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:39:13.802 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:43:04.645 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:43:04.649 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:52:39.275 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:52:39.281 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+21:53:00.966 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+21:53:00.973 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:53:56.363 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:53:56.368 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:53:57.514 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:53:57.517 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:54:43.460 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:54:43.466 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:54:44.898 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:54:44.901 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:55:08.060 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:55:08.136 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:55:08.140 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:55:08.193 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:55:08.253 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:55:08.256 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:59:18.733 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:59:18.789 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:59:18.791 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:59:18.832 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:59:18.875 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:59:18.877 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:00:46.025 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+23:00:46.031 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:00:47.698 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+23:00:47.701 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+23:52:36.289 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+00:01:43.649 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:02:20.962 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:02:20.970 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:05:41.885 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:05:41.889 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:05:42.971 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:05:42.973 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:05:45.906 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:05:45.909 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:14:10.772 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:14:10.777 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:14:11.970 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:14:11.972 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:14:15.326 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:14:15.328 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:20:15.407 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+00:20:50.163 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+00:25:09.416 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+00:27:06.075 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:33:06.171 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+00:33:26.962 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+00:41:11.068 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+00:42:41.942 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:42:42.000 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:42:42.003 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:42:42.045 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:42:42.100 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:42:42.102 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:42:56.081 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:42:56.087 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:42:57.394 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:42:57.396 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:42:58.629 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+00:43:00.965 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+00:43:00.970 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+00:57:24.799 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:09:49.461 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:31:06.983 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:33:35.869 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+01:39:08.460 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+01:46:28.971 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+01:46:28.976 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:47:36.443 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+01:47:36.446 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:48:13.046 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+01:48:13.047 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:48:35.436 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+01:48:35.438 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:48:35.453 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:50:31.269 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+01:50:31.276 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:50:33.660 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:51:06.103 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:51:22.873 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+01:51:22.880 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:51:25.562 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:51:27.804 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:51:54.466 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+01:51:54.473 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:51:55.818 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:51:57.097 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:51:59.270 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:52:13.445 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+01:52:13.446 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+01:52:13.451 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:52:13.566 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:52:13.629 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+01:52:13.632 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:52:13.678 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:52:13.729 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+01:52:13.732 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+01:52:20.598 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+02:02:23.922 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+02:02:44.661 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+02:02:44.664 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+02:02:44.668 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+02:02:44.762 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+02:02:44.817 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+02:02:44.818 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+02:02:44.859 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+02:02:44.898 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+02:02:44.900 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
