@@ -34,7 +34,11 @@ public interface EmployeeService {
 
     Employee editEmployeeById(Long id, Employee employeeNew);
 
-    //    void uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException;
-    List<EmployeeDTO> uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException;
+    void readEmployeeById(Long id, EmployeeDTO employeeNew);
 
+    //    void uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException;
+
+    List<EmployeeDTO> getEmployeesFromFile(MultipartFile multipartFile) throws IOException;
+
+    void uploadEmployeesFromFile(List<EmployeeDTO> uploadListEmployeeDTO) throws IOException;
 }

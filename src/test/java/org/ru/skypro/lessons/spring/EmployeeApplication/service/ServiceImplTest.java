@@ -1,9 +1,5 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,25 +13,19 @@ import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
-import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.ReportStatisticsDivision;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.DivisionRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.EmployeeRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.PositionRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.ReportRepository;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -64,18 +54,18 @@ class ServiceImplTest {
     @Test
     void testFindAllEmployees() {
         when(employeeRepositoryMock.findAllEmployee())
-                .thenReturn(listAllEmployees);
+                .thenReturn(LIST_ALL_EMPLOYEES);
 
-        assertIterableEquals(listAllEmployees, employeeServiceOut.findAllEmployees());
+        assertIterableEquals(LIST_ALL_EMPLOYEES, employeeServiceOut.findAllEmployees());
 
     }
 
     @Test
     void testFindAllEmployeesFullInfo() {
         when(employeeRepositoryMock.findAllEmployeeFullInfo())
-                .thenReturn(listAllEmployeesFullInfo);
+                .thenReturn(LIST_ALL_EMPLOYEES_FULL_INFO);
 
-        assertIterableEquals(listAllEmployeesFullInfo, employeeServiceOut.findAllEmployeesFullInfo());
+        assertIterableEquals(LIST_ALL_EMPLOYEES_FULL_INFO, employeeServiceOut.findAllEmployeesFullInfo());
 
     }
 
@@ -86,17 +76,11 @@ class ServiceImplTest {
 
         assertIterableEquals(employeeDTOList, employeeServiceOut.allEmployeesToEmployeesDTO(employeeList));
 
-        // По поводу данного метода требуется поснение:
-        // если запускаю этот тест отдельно - все хорошо
-        // если запускаю все тесты класса разом - в этом методе (единственном) возникает несоответствие между ожидание/реальность
-        // приводит к несоответствию метод на 280 строке: testEditEmployeeById, который редактирует данные сотрудников
-        // если закомментировать метод testEditEmployeeById - то testAllEmployeesToEmployeesDTO отрабатывает отлично
-        // Почему так?
     }
 
     public static Stream<Arguments> paramsForTestAllEmployeesToEmployeesDTO() {
         return Stream.of(
-                Arguments.of(listEmployeesForDivision1, listAllEmployeesDTOForDivision1)
+                Arguments.of(LIST_EMPLOYEES_FOR_DIVISION_1, LIST_ALL_EMPLOYEES_DTO_FOR_DIVISION_1)
 //                ,
 //                Arguments.of(listEmployeesForDivision2, listAllEmployeesDTOForDivision2)
         );
@@ -111,10 +95,10 @@ class ServiceImplTest {
 
     public static Stream<Arguments> paramsForTestEmployeeToEmployeeFullInfo() {
         return Stream.of(
-                Arguments.of(employee1, employeeFullInfo1),
-                Arguments.of(employee2, employeeFullInfo2),
-                Arguments.of(employee3, employeeFullInfo3),
-                Arguments.of(employee4, employeeFullInfo4)
+                Arguments.of(EMPLOYEE_1, EMPLOYEE_FULL_INFO_1),
+                Arguments.of(EMPLOYEE_2, EMPLOYEE_FULL_INFO_2),
+                Arguments.of(EMPLOYEE_3, EMPLOYEE_FULL_INFO_3),
+                Arguments.of(EMPLOYEE_4, EMPLOYEE_FULL_INFO_4)
         );
     }
 
@@ -128,27 +112,27 @@ class ServiceImplTest {
 
     public static Stream<Arguments> paramsForGetEmployeeFullInfoById() {
         return Stream.of(
-                Arguments.of(employeeId1, employee1, employeeFullInfo1),
-                Arguments.of(employeeId2, employee2, employeeFullInfo2),
-                Arguments.of(employeeId3, employee3, employeeFullInfo3),
-                Arguments.of(employeeId4, employee4, employeeFullInfo4)
+                Arguments.of(EMPLOYEE_ID_1, EMPLOYEE_1, EMPLOYEE_FULL_INFO_1),
+                Arguments.of(EMPLOYEE_ID_2, EMPLOYEE_2, EMPLOYEE_FULL_INFO_2),
+                Arguments.of(EMPLOYEE_ID_3, EMPLOYEE_3, EMPLOYEE_FULL_INFO_3),
+                Arguments.of(EMPLOYEE_ID_4, EMPLOYEE_4, EMPLOYEE_FULL_INFO_4)
         );
     }
 
     @Test
     void testGetEmployeeFullInfoWithMaxSalary() {
         when(employeeRepositoryMock.getEmployeeFullInfoWithMaxSalary())
-                .thenReturn(List.of(employeeFullInfo4));
+                .thenReturn(List.of(EMPLOYEE_FULL_INFO_4));
 
-        assertIterableEquals(List.of(employeeFullInfo4), employeeServiceOut.getEmployeeFullInfoWithMaxSalary());
+        assertIterableEquals(List.of(EMPLOYEE_FULL_INFO_4), employeeServiceOut.getEmployeeFullInfoWithMaxSalary());
 
     }
 
     @Test
     void testGetEmployeeFullInfoByPosition_PositionIdIsNull() {
         when(employeeRepositoryMock.findAllEmployeeFullInfo())
-                .thenReturn(listAllEmployeesFullInfo);
-        assertIterableEquals(listAllEmployeesFullInfo, employeeServiceOut.getEmployeeFullInfoByPosition(null));
+                .thenReturn(LIST_ALL_EMPLOYEES_FULL_INFO);
+        assertIterableEquals(LIST_ALL_EMPLOYEES_FULL_INFO, employeeServiceOut.getEmployeeFullInfoByPosition(null));
     }
 
     @ParameterizedTest
@@ -162,10 +146,10 @@ class ServiceImplTest {
 
     public static Stream<Arguments> paramsForGetEmployeeFullInfoByPosition() {
         return Stream.of(
-                Arguments.of(positionId1, position1, listEmployeesForPosition1, listAllEmployeesFullInfoForPosition1),
-                Arguments.of(positionId2, position2, listEmployeesForPosition2, listAllEmployeesFullInfoForPosition2),
-                Arguments.of(positionId3, position3, listEmployeesForPosition3, listAllEmployeesFullInfoForPosition3),
-                Arguments.of(positionId4, position4, listEmployeesForPosition4, listAllEmployeesFullInfoForPosition4)
+                Arguments.of(POSITION_ID_1, POSITION_1, LIST_EMPLOYEES_FOR_POSITION_1, LIST_ALL_EMPLOYEES_FULL_INFO_FOR_POSITION_1),
+                Arguments.of(POSITION_ID_2, POSITION_2, LIST_EMPLOYEES_FOR_POSITION_2, LIST_ALL_EMPLOYEES_FULL_INFO_FOR_POSITION_2),
+                Arguments.of(POSITION_ID_3, POSITION_3, LIST_EMPLOYEES_FOR_POSITION_3, LIST_ALL_EMPLOYEES_FULL_INFO_FOR_POSITION_3),
+                Arguments.of(POSITION_ID_4, POSITION_4, LIST_EMPLOYEES_FOR_POSITION_4, LIST_ALL_EMPLOYEES_FULL_INFO_FOR_POSITION_4)
         );
     }
 
@@ -179,10 +163,10 @@ class ServiceImplTest {
 
     public static Stream<Arguments> paramsForTestSalaryHigherThan() {
         return Stream.of(
-                Arguments.of(employeeSalary1, List.of(employeeFullInfo1, employeeFullInfo2, employeeFullInfo3, employeeFullInfo4)),
-                Arguments.of(employeeSalary2, List.of(employeeFullInfo2, employeeFullInfo3, employeeFullInfo4)),
-                Arguments.of(employeeSalary3, List.of(employeeFullInfo3, employeeFullInfo4)),
-                Arguments.of(employeeSalary4, List.of(employeeFullInfo4))
+                Arguments.of(EMPLOYEE_SALARY_1, List.of(EMPLOYEE_FULL_INFO_1, EMPLOYEE_FULL_INFO_2, EMPLOYEE_FULL_INFO_3, EMPLOYEE_FULL_INFO_4)),
+                Arguments.of(EMPLOYEE_SALARY_2, List.of(EMPLOYEE_FULL_INFO_2, EMPLOYEE_FULL_INFO_3, EMPLOYEE_FULL_INFO_4)),
+                Arguments.of(EMPLOYEE_SALARY_3, List.of(EMPLOYEE_FULL_INFO_3, EMPLOYEE_FULL_INFO_4)),
+                Arguments.of(EMPLOYEE_SALARY_4, List.of(EMPLOYEE_FULL_INFO_4))
         );
     }
 
@@ -201,8 +185,8 @@ class ServiceImplTest {
 
     public static Stream<Arguments> paramsEmployeeFullInfoWithPaging() {
         return Stream.of(
-                Arguments.of(pageIndex0, unitPerPage1, page1),
-                Arguments.of(pageIndex1, unitPerPage2, page2)
+                Arguments.of(PAGE_INDEX_0, UNIT_PER_PAGE_1, PAGE_1),
+                Arguments.of(PAGE_INDEX_1, UNIT_PER_PAGE_2, PAGE_2)
         );
     }
 
@@ -212,6 +196,11 @@ class ServiceImplTest {
         employeeServiceOut.deleteEmployeeById(employee.getId());
         verify(employeeRepositoryMock, times(1)).deleteById(employee.getId());
 
+        //Вопрос к наставнику:
+        // Добавила в сервис проверку на существование id
+        // в этом модульном тесте на удаление сотрудника появилась ошибка:
+        //org.ru.skypro.lessons.spring.EmployeeApplication.exception.UserNotFoundException
+        //Как правильно скорректировать тест?
     }
 
     @ParameterizedTest
@@ -225,10 +214,10 @@ class ServiceImplTest {
 
     public static Stream<Arguments> paramsAddRemoveEmployee() {
         return Stream.of(
-                Arguments.of(employee1),
-                Arguments.of(employee2),
-                Arguments.of(employee3),
-                Arguments.of(employee4)
+                Arguments.of(EMPLOYEE_1),
+                Arguments.of(EMPLOYEE_2),
+                Arguments.of(EMPLOYEE_3),
+                Arguments.of(EMPLOYEE_4)
         );
     }
 
@@ -245,7 +234,7 @@ class ServiceImplTest {
         return Stream.of(
 //                Arguments.of(employee1, employee2, employeeFullInfo2),
 //                Arguments.of(employee2, employee3, employeeFullInfo3),
-                Arguments.of(employee3, employee4, employeeFullInfo4)
+                Arguments.of(EMPLOYEE_3, EMPLOYEE_4, EMPLOYEE_FULL_INFO_4)
 //                ,
 //                Arguments.of(employee4, employee1, employeeFullInfo2)
         );
@@ -256,24 +245,24 @@ class ServiceImplTest {
         File testFile = new File("src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/fileToUpload.json");
         MockMultipartFile mockMultipartFile = new MockMultipartFile("file", new FileInputStream(testFile));
 
-        assertIterableEquals(listNewEmployeesDTO, employeeServiceOut.uploadEmployeesFromFile(mockMultipartFile));
+        assertIterableEquals(LIST_NEW_EMPLOYEES_DTO, employeeServiceOut.getEmployeesFromFile(mockMultipartFile));
 
     }
 
     @Test
     void testSaveReportStatisticsAllDivisions() throws IOException {
-        assertEquals(saveReportStatisticsAllDivisions, reportServiceOut.saveReportStatisticsAllDivisions(allDivisionReportStatistics));
+        assertEquals(SAVE_REPORT_STATISTICS_ALL_DIVISIONS, reportServiceOut.saveReportStatisticsAllDivisions(ALL_DIVISION_REPORT_STATISTICS));
     }
 
     @Test
     void testSaveReportStatisticsDivision() throws IOException {
-        assertEquals(saveReportStatisticsMarketing, reportServiceOut.saveReportStatisticsDivision(reportStatisticsDivision1));
+        assertEquals(SAVE_REPORT_STATISTICS_MARKETING, reportServiceOut.saveReportStatisticsDivision(REPORT_STATISTICS_DIVISION_1));
     }
 
     @Test
     void testDownloadReportFile_NoSuchFile() throws IOException {
         when(reportRepositoryMock.findFilePathByReportId(1L))
-                .thenReturn(String.valueOf(nonExistentReport));
+                .thenReturn(String.valueOf(NON_EXISTENT_REPORT));
 
         assertThrows(NoSuchFileException.class, () -> reportServiceOut.downloadReportFile(1L));
     }
@@ -281,8 +270,8 @@ class ServiceImplTest {
     @Test
     void testDownloadReportFile_OkFile() throws IOException {
         when(reportRepositoryMock.findFilePathByReportId(2L))
-                .thenReturn(newReportMarketing.getFilePath());
-        assertEquals(saveReportStatisticsMarketing ,reportServiceOut.downloadReportFile(2L));
+                .thenReturn(NEW_REPORT_MARKETING.getFilePath());
+        assertEquals(SAVE_REPORT_STATISTICS_MARKETING, reportServiceOut.downloadReportFile(2L));
 
     }
 

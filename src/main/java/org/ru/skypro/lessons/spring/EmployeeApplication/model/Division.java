@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -31,5 +32,18 @@ public class Division {
     public Division(Long divisionId, String divisionName) {
         this.divisionId = divisionId;
         this.divisionName = divisionName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Division division = (Division) o;
+        return divisionId.equals(division.divisionId) && divisionName.equals(division.divisionName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(divisionId, divisionName);
     }
 }
