@@ -2,10 +2,10 @@ package org.ru.skypro.lessons.spring.EmployeeApplication.controller;
 
 import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
-import org.ru.skypro.lessons.spring.EmployeeApplication.security.AuthUser;
+//import org.ru.skypro.lessons.spring.EmployeeApplication.security.AuthUser;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.EmployeeService;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.ReportService;
-import org.ru.skypro.lessons.spring.EmployeeApplication.service.UserService;
+//import org.ru.skypro.lessons.spring.EmployeeApplication.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -21,15 +21,11 @@ public class AdminEmployeeController {
     private static final Logger logger = LoggerFactory.getLogger(AdminEmployeeController.class);
 
     private final EmployeeService employeeService;
-
     private final ReportService reportService;
 
-    private final UserService userService;
-
-    public AdminEmployeeController(EmployeeService employeeService, ReportService reportService, UserService userService) {
+    public AdminEmployeeController(EmployeeService employeeService, ReportService reportService) {
         this.employeeService = employeeService;
         this.reportService = reportService;
-        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -44,9 +40,14 @@ public class AdminEmployeeController {
         }
     }
 
+//    @PutMapping("/employees/{id}")
+//    public void readEmployeeById(@PathVariable("id") Long id, @RequestBody Employee employeeNew) {
+//        employeeService.addEmployee(employeeService.editEmployeeById(id, employeeNew));
+//    }
+
     @PutMapping("/employees/{id}")
-    public void readEmployeeById(@PathVariable("id") Long id, @RequestBody Employee employeeNew) {
-        employeeService.addEmployee(employeeService.editEmployeeById(id, employeeNew));
+    public void readEmployeeById(@PathVariable("id") Long id, @RequestBody EmployeeDTO employeeNew) {
+        employeeService.readEmployeeById(id, employeeNew);
     }
 
     @DeleteMapping("/employees/{id}")
@@ -55,11 +56,18 @@ public class AdminEmployeeController {
     }
 
 
+//    @PostMapping(value = "/employees/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public void uploadFile(@RequestBody MultipartFile file) throws IOException {
+//        logger.info("Файл загружен. Имя файла: " + file.getOriginalFilename() +
+//                " Размер файла: " + file.getSize() + " байт");
+//        employeeService.uploadEmployeesFromFile(file);
+//    }
+
     @PostMapping(value = "/employees/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void uploadFile(@RequestBody MultipartFile file) throws IOException {
+    public void uploadFile(@RequestParam ("file") MultipartFile file) throws IOException {
         logger.info("Файл загружен. Имя файла: " + file.getOriginalFilename() +
                 " Размер файла: " + file.getSize() + " байт");
-        employeeService.uploadEmployeesFromFile(file);
+        employeeService.uploadEmployeesFromFile(employeeService.getEmployeesFromFile(file));
     }
 
     @GetMapping("/employees/report")
@@ -70,11 +78,6 @@ public class AdminEmployeeController {
     @GetMapping("/employees/report/division")
     public void saveReportStatisticsByDivision(@RequestParam ("id") Long divisionId) throws IOException {
         reportService.saveReportStatisticsDivision(reportService.reportStatisticsByDivision(divisionId));
-    }
-
-    @PostMapping("/users/create")
-    public void createNewUser(@RequestBody AuthUser user) {
-        userService.addUser(user);
     }
 
 }

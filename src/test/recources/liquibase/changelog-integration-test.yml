@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/changesets/test290623_create_table_entity.yml
+#  - include:
+#      file: liquibase/changesets/test290623_create_table_security.yml
