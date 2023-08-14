@@ -45,34 +45,34 @@ public class EmployeeServiceTestConstant {
     public static final Double EMPLOYEE_SALARY_4 = 400000.0;
 
     public static final Long POSITION_ID_1 = 1L;
-    public static final String POSITION_NAME_1 = "Developer";
+    public static final String POSITION_NAME_1 = "Position1";
     public static final Position POSITION_1 = new Position(POSITION_ID_1, POSITION_NAME_1);
 
     public static final Long POSITION_ID_2 = 2L;
-    public static final String POSITION_NAME_2 = "Administrator";
+    public static final String POSITION_NAME_2 = "Position2";
     public static final Position POSITION_2 = new Position(POSITION_ID_2, POSITION_NAME_2);
 
     public static final Long POSITION_ID_3 = 3L;
-    public static final String POSITION_NAME_3 = "CEO";
+    public static final String POSITION_NAME_3 = "Position3";
     public static final Position POSITION_3 = new Position(POSITION_ID_3, POSITION_NAME_3);
 
     public static final Long POSITION_ID_4 = 4L;
-    public static final String POSITION_NAME_4 = "CFO";
+    public static final String POSITION_NAME_4 = "Position4";
     public static final Position POSITION_4 = new Position(POSITION_ID_4, POSITION_NAME_4);
 
     public static final List<Position> LIST_ALL_POSITIONS = List.of(POSITION_1, POSITION_2, POSITION_3, POSITION_4);
 
 
     public static final Long DIVISION_ID_1 = 1L;
-    public static final String DIVISION_NAME_1 = "IT";
+    public static final String DIVISION_NAME_1 = "Division1";
     public static final Division DIVISION_1 = new Division(DIVISION_ID_1, DIVISION_NAME_1);
 
     public static final Long DIVISION_ID_2 = 2L;
-    public static final String DIVISION_NAME_2 = "Administration";
+    public static final String DIVISION_NAME_2 = "Division2";
     public static final Division DIVISION_2 = new Division(DIVISION_ID_2, DIVISION_NAME_2);
 
     public static final Long DIVISION_ID_3 = 3L;
-    public static final String DIVISION_NAME_3 = "Marketing";
+    public static final String DIVISION_NAME_3 = "Division3";
     public static final Division DIVISION_3 = new Division(DIVISION_ID_3, DIVISION_NAME_3);
 
     public static final List<Division> LIST_ALL_DIVISIONS = List.of(DIVISION_1, DIVISION_2);

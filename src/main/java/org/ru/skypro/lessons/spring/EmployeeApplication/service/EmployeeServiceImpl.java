@@ -11,7 +11,6 @@ import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.DivisionRepository;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.EmployeeRepository;
-import org.ru.skypro.lessons.spring.EmployeeApplication.repository.NameGenerator;
 import org.ru.skypro.lessons.spring.EmployeeApplication.repository.PositionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,18 +92,27 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.salaryHigherThan(salary);
     }
 
-    public Employee generateRandomEmployees() {
-        Double randomSalary = Math.random() * 100000 + 50000;
-        Integer randomPositionId = (int) (Math.round(Math.random() * 4) + 1);
-        Integer randomDivisionId = (int) (Math.round(Math.random() * 2) + 1);
-        Position randomPosition = positionRepository.findById(randomPositionId).orElseThrow();
-        Division randomDivision = divisionRepository.findById(randomDivisionId).orElseThrow();
-        Employee randomEmployee = new Employee();
-        randomEmployee.setName(NameGenerator.randomName());
+    public EmployeeDTO generateRandomEmployees() {
+
+        Long randomPositionId = Math.round(Math.random() * 3) + 1;
+        positionRepository.saveAll(List.of(new Position(1L, "Position1"),
+                new Position(2L, "Position2"),
+                new Position(3L, "Position3"),
+                new Position(4L, "Position4")));
+
+        Long randomDivisionId = Math.round(Math.random() * 1) + 1;
+        divisionRepository.saveAll(List.of(new Division(1L, "Division1"),
+                new Division(2L, "Division2")));
+
+        Double randomSalary = randomPositionId * 100000.0;
+
+        EmployeeDTO randomEmployee = new EmployeeDTO();
+        randomEmployee.setName("Employee" + randomPositionId);
         randomEmployee.setSalary(randomSalary);
-        randomEmployee.setPosition(randomPosition);
-        randomEmployee.setDivision(randomDivision);
+        randomEmployee.setPositionId(randomPositionId);
+        randomEmployee.setDivisionId(randomDivisionId);
         logger.info("generating random employees");
+
         return randomEmployee;
     }
 
@@ -121,11 +129,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployeeById(Long id) {
-        if (employeeRepository.existsById(id)) {
-            logger.info("delete Employee By Id");
-            employeeRepository.deleteById(id);
-        } else {
+        if (employeeRepository.findById(id).orElse(null) == null) {
             throw new UserNotFoundException();
+        } else {
+            employeeRepository.deleteById(id);
+            logger.info("delete Employee with id="+id);
         }
     }
 
@@ -217,21 +225,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         });
     }
 
-//    @Override
-//    public void uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException {
-//        byte[] inputStream = multipartFile.getBytes();
-//
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        List<EmployeeDTO> uploadListEmployeeDTO = objectMapper.readValue(inputStream, new TypeReference<>() {
-//        });
-//        allEmployeesDTOToEmployee(uploadListEmployeeDTO)
-//                .forEach(this::addEmployee);
-//
-//        logger.info("upload Employees From File " + multipartFile.getOriginalFilename());
-//        logger.info("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
-//
-//    }
-
     @Override
     public List<EmployeeDTO> getEmployeesFromFile(MultipartFile multipartFile) throws IOException {
         byte[] inputStream = multipartFile.getBytes();
@@ -244,20 +237,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void uploadEmployeesFromFile(List<EmployeeDTO> uploadListEmployeeDTO) throws IOException {
-        List<Employee> uploadListEmployee = allEmployeesDTOToEmployee(uploadListEmployeeDTO).stream()
-                .peek(this::addEmployee)
-                .toList();
+    public void uploadEmployeesFromListEmployeeDTO(List<EmployeeDTO> uploadListEmployeeDTO) throws IOException {
+//        List<Employee> uploadListEmployee = allEmployeesDTOToEmployee(uploadListEmployeeDTO).stream()
+//                .peek(this::addEmployee)
+//                .toList();
+        List<Employee> uploadListEmployee = allEmployeesDTOToEmployee(uploadListEmployeeDTO);
+        employeeRepository.saveAll(uploadListEmployee);
         logger.info("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
     }
 
     private Employee toEmployee(EmployeeDTO employeeDTO) {
+
         Employee employee = new Employee();
+
         employee.setId(employeeDTO.getId());
         employee.setName(employeeDTO.getName());
         employee.setSalary(employeeDTO.getSalary());
-        employee.setPosition(positionRepository.findByPositionId(employeeDTO.getPositionId()));
-        employee.setDivision(divisionRepository.findByDivisionId(employeeDTO.getDivisionId()));
+
+        employee.setPosition(positionRepository.findById(employeeDTO.getPositionId()).orElse(null));
+        employee.setDivision(divisionRepository.findById(employeeDTO.getDivisionId()).orElse(null));
+
         logger.info("Converting EmployeeDTO to Employee");
         return employee;
     }
