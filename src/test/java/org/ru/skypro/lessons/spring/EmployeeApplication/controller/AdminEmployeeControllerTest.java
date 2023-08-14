@@ -113,31 +113,21 @@ class AdminEmployeeControllerTest {
                 .andExpect(jsonPath("$.length()").value(4));
     }
 
-//    @Test
-//    void generateEmployees() throws Exception {
-//
-    //Вопрос к наставнику:
-    //Понимаю как сделать тест к post-запросу
-    //Не понимаю как сделать тест к методу generate
-
-//    }
+    @Test
+    void generateEmployees() throws Exception {
+        Integer number = 5;
+        mockMvc.perform(post("/admin/employees/generate").param("number", String.valueOf(number))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/admin/"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(number));
+    }
 
     @Test
     void readEmployeeById() throws Exception {
         createEmployeesInRepository();
-        // Вопрос к наставнику:
-        // Всё, что закомментировано в этом тесте - взято/сделано по аналогии из лекции, но работает тест только до статуса isOk
-        // Проверка id или name дает ошибку вида:
-        // No value at JSON path "$.id" или No value at JSON path "$.name"
-
-        // Создаем JSON объект, который будет использован
-        // для отправки запроса на добавление пользователя
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("id", 4);
-//        jsonObject.put("name", "test_name");
-//        jsonObject.put("salary", 500000.0);
-//        jsonObject.put("positionId",4);
-//        jsonObject.put("divisionId",2);
 
         EmployeeDTO newEmployee = new EmployeeDTO(4L, "test_name", 500000.0, 2L, 4L);
 
@@ -149,13 +139,6 @@ class AdminEmployeeControllerTest {
         mockMvc.perform(get("/employees/{id}/fullInfo", 4))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("test_name"));
-
-//                .andExpect(jsonPath("$.id").isNotEmpty())
-//      // Ожидаем, что поле "id" будет не пустым
-//                .andExpect(jsonPath("$.id").isNumber())
-//      // Ожидаем, что поле "id" будет числом
-//                .andExpect(jsonPath("$.name").value("test_name"));
-//      // Ожидаем, что поле "name" будет иметь значение "test_name"
 
         mockMvc.perform(put("/admin/employees/{id}", 5)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -224,10 +207,6 @@ class AdminEmployeeControllerTest {
     void saveReportStatisticsAllDivisions() throws Exception {
         createEmployeesInRepository();
 
-//        ReportStatisticsDivision reportStatisticsDivision1 = new ReportStatisticsDivision("Division1", 2L, 300000.0, 200000.0, 100000.0, 150000.0);
-//        ReportStatisticsDivision reportStatisticsDivision2 = new ReportStatisticsDivision("Division2", 2L, 700000.0, 400000.0, 300000.0, 350000.0);
-//        List<ReportStatisticsDivision> listReportStatisticsDivision = List.of(reportStatisticsDivision1, reportStatisticsDivision2);
-
         LocalDateTime localDateTime = LocalDate.now().atStartOfDay();
         String path = "src/main/java/org/ru/skypro/lessons/spring/EmployeeApplication" +
                 "/REPORTS";
@@ -235,21 +214,6 @@ class AdminEmployeeControllerTest {
 
         mockMvc.perform(get("/admin/employees/report"))
                 .andExpect(status().isOk());
-
-//        //тест с ошибкой
-//        mockMvc.perform(get("/report/{id}", 1))
-//                .andExpect(status().isOk());
-
-//                .andExpect(jsonPath("$.filePath").value(path + fileNameAllDivisions));
-
-        //Вопрос к наставнику:
-        // Метод, который создает и сохраняет в папку REPORTS статистический отчет,
-        // должен делать еще запись с id (=1) и путем к файлу в репозиторий reportRepository,
-        // файл появляется в нужной папке самого приложения (не теста), но почему-то
-//        mockMvc.perform(get("/report/{id}", 1))
-//                .andExpect(status().isOk());
-        // не находит отчет c id=1
-
     }
 
     @Test
@@ -268,7 +232,5 @@ class AdminEmployeeControllerTest {
                         .param("id", "0_anyString"))
                 .andExpect(status().is4xxClientError());
 
-        //Вопрос к наставнику:
-        //Как и в предыдущем методе, можно ли добавить тест на существование отчета после его добавления?
     }
 }

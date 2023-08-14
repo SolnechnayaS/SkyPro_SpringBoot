@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface DivisionRepository extends CrudRepository<Division, Integer> {
+public interface DivisionRepository extends CrudRepository<Division, Long> {
     Division findByDivisionName(String divisionName);
 
     Division findByDivisionId(Long divisionId);

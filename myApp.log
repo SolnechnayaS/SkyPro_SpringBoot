@@ -7004,3 +7004,232 @@ Caused by: org.postgresql.util.PSQLException: The server requested SCRAM-based a
 02:02:44.859 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
 02:02:44.898 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
 02:02:44.900 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:04:48.059 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:04:48.063 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:04:49.261 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:04:50.539 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+15:04:52.551 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:04:53.660 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+15:04:53.660 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+15:04:53.662 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:04:53.718 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:04:53.755 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:04:53.757 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:04:53.790 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:04:53.825 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+15:04:53.827 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+15:04:55.660 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+13:54:08.037 [main] ERROR com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Exception during pool initialization.
+org.postgresql.util.PSQLException: The server requested SCRAM-based authentication, but no password was provided.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.lambda$doAuthentication$4(ConnectionFactoryImpl.java:838)
+	at org.postgresql.core.v3.AuthenticationPluginManager.withPassword(AuthenticationPluginManager.java:81)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:835)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:203)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:253)
+	at org.postgresql.Driver.makeConnection(Driver.java:434)
+	at org.postgresql.Driver.connect(Driver.java:291)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:281)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1816)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1156)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:931)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:733)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:435)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:311)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1305)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1294)
+	at org.ru.skypro.lessons.spring.EmployeeApplication.EmployeeApplication.main(EmployeeApplication.java:13)
+13:54:08.087 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: org.postgresql.util.PSQLException: The server requested SCRAM-based authentication, but no password was provided.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1156)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:931)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:733)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:435)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:311)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1305)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1294)
+	at org.ru.skypro.lessons.spring.EmployeeApplication.EmployeeApplication.main(EmployeeApplication.java:13)
+Caused by: liquibase.exception.DatabaseException: org.postgresql.util.PSQLException: The server requested SCRAM-based authentication, but no password was provided.
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:286)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1816)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	... 18 common frames omitted
+Caused by: org.postgresql.util.PSQLException: The server requested SCRAM-based authentication, but no password was provided.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.lambda$doAuthentication$4(ConnectionFactoryImpl.java:838)
+	at org.postgresql.core.v3.AuthenticationPluginManager.withPassword(AuthenticationPluginManager.java:81)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:835)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:203)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:253)
+	at org.postgresql.Driver.makeConnection(Driver.java:434)
+	at org.postgresql.Driver.connect(Driver.java:291)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:281)
+	... 20 common frames omitted
+13:59:10.442 [main] ERROR com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Exception during pool initialization.
+org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:693)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:203)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:253)
+	at org.postgresql.Driver.makeConnection(Driver.java:434)
+	at org.postgresql.Driver.connect(Driver.java:291)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:281)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1816)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1156)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:931)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:733)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:435)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:311)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1305)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1294)
+	at org.ru.skypro.lessons.spring.EmployeeApplication.EmployeeApplication.main(EmployeeApplication.java:13)
+13:59:10.487 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1156)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:931)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:733)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:435)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:311)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1305)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1294)
+	at org.ru.skypro.lessons.spring.EmployeeApplication.EmployeeApplication.main(EmployeeApplication.java:13)
+Caused by: liquibase.exception.DatabaseException: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:286)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1816)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766)
+	... 18 common frames omitted
+Caused by: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:693)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:203)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:253)
+	at org.postgresql.Driver.makeConnection(Driver.java:434)
+	at org.postgresql.Driver.connect(Driver.java:291)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:281)
+	... 20 common frames omitted
+14:17:18.061 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+14:32:56.508 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+14:37:18.479 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+14:39:09.338 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+15:50:41.010 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:11:24.867 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:07.618 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+16:14:28.330 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+16:14:28.333 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+16:14:28.337 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:28.472 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:28.542 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+16:14:28.544 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:28.596 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:28.664 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+16:14:28.667 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:57.999 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+16:14:58.001 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+16:14:58.008 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:58.135 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:58.208 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+16:14:58.210 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:58.263 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:14:58.318 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+16:14:58.323 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:15:15.029 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+16:15:15.037 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:15:16.533 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:15:18.037 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+16:15:20.646 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:16:25.323 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:20:19.585 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+16:20:19.590 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:20:21.097 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:20:22.729 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+16:20:26.692 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:22:00.170 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+16:22:00.175 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:22:01.702 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:22:03.186 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+16:22:06.971 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:22:23.577 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+16:22:23.579 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+16:22:23.586 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:22:23.718 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:22:23.793 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+16:22:23.795 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:22:23.849 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+16:22:23.906 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+16:22:23.909 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
