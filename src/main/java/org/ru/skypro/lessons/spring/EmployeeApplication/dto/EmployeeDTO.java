@@ -23,19 +23,13 @@ public class EmployeeDTO {
 
         if (employee.getDivision() !=null)
         {employeeDTO.setDivisionId(employee.getDivision().getDivisionId());}
+        else {employeeDTO.setDivisionId(null);}
 
         if (employee.getPosition() !=null)
         {employeeDTO.setPositionId(employee.getPosition().getPositionId());}
+        else {employeeDTO.setPositionId(null);}
+
         return employeeDTO;
-    }
-
-    public Employee toEmployee() {
-        Employee employee = new Employee();
-        employee.setId(this.getId());
-        employee.setName(this.getName());
-        employee.setSalary(this.getSalary());
-
-        return employee;
     }
     
 }

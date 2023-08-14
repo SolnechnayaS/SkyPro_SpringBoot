@@ -1,6 +1,6 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.exception;
 
-import org.ru.skypro.lessons.spring.EmployeeApplication.service.UserServiceImpl;
+//import org.ru.skypro.lessons.spring.EmployeeApplication.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -49,6 +49,17 @@ public class EmployeeExceptionHandler {
     public ResponseEntity<?> handlerNullPointerException(NullPointerException nullPointerException) {
         logger.error("Null Pointer Exception");
         return new ResponseEntity<>("Данные не найдены",HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> handleError(UserNotFoundException e) {
+        return ResponseEntity.notFound().build();
+    }
+
+
+    @ExceptionHandler(IncorrectIdException.class)
+    public ResponseEntity<?> handleError(IncorrectIdException e) {
+        return ResponseEntity.notFound().build();
     }
 
 }

@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.web.ConditionalOnEnabledResourceChain;
+
+import java.util.Objects;
 
 
 @AllArgsConstructor
@@ -92,5 +95,18 @@ public class Employee {
         this.id = id;
         this.name = name;
         this.salary = salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id.equals(employee.id) && name.equals(employee.name) && salary.equals(employee.salary);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, salary);
     }
 }

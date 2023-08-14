@@ -24,7 +24,7 @@ public interface EmployeeService {
 
     List<EmployeeFullInfo> salaryHigherThan(Double salary);
 
-    Employee generateRandomEmployees();
+    EmployeeDTO generateRandomEmployees();
 
     List<EmployeeFullInfo> getEmployeeFullInfoWithPaging(int pageIndex, int unitPerPage);
 
@@ -34,7 +34,11 @@ public interface EmployeeService {
 
     Employee editEmployeeById(Long id, Employee employeeNew);
 
-    //    void uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException;
-    List<EmployeeDTO> uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException;
+    void readEmployeeById(Long id, EmployeeDTO employeeNew);
 
+    //    void uploadEmployeesFromFile(MultipartFile multipartFile) throws IOException;
+
+    List<EmployeeDTO> getEmployeesFromFile(MultipartFile multipartFile) throws IOException;
+
+    void uploadEmployeesFromListEmployeeDTO(List<EmployeeDTO> uploadListEmployeeDTO) throws IOException;
 }

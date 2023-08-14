@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -31,5 +32,18 @@ public class Position {
     public Position(Long positionId, String positionName) {
         this.positionId = positionId;
         this.positionName = positionName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return positionId.equals(position.positionId) && positionName.equals(position.positionName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(positionId, positionName);
     }
 }
