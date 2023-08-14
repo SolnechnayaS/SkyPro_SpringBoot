@@ -56,4 +56,10 @@ public class EmployeeExceptionHandler {
         return ResponseEntity.notFound().build();
     }
 
+
+    @ExceptionHandler(IncorrectIdException.class)
+    public ResponseEntity<?> handleError(IncorrectIdException e) {
+        return ResponseEntity.notFound().build();
+    }
+
 }

@@ -1,7 +1,6 @@
 package org.ru.skypro.lessons.spring.EmployeeApplication.controller;
 
 import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
-import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 //import org.ru.skypro.lessons.spring.EmployeeApplication.security.AuthUser;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.EmployeeService;
 import org.ru.skypro.lessons.spring.EmployeeApplication.service.ReportService;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -34,16 +34,13 @@ public class AdminEmployeeController {
     }
 
     @PostMapping("/employees/generate")
-    public void generateEmployees(@RequestParam("number") Integer number) {
+    public void generateEmployees(@RequestParam("number") Integer number) throws IOException {
+        List<EmployeeDTO> listRandomEmployees = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            employeeService.addEmployee(employeeService.generateRandomEmployees());
+            listRandomEmployees.add(employeeService.generateRandomEmployees());
         }
+        employeeService.uploadEmployeesFromListEmployeeDTO(listRandomEmployees);
     }
-
-//    @PutMapping("/employees/{id}")
-//    public void readEmployeeById(@PathVariable("id") Long id, @RequestBody Employee employeeNew) {
-//        employeeService.addEmployee(employeeService.editEmployeeById(id, employeeNew));
-//    }
 
     @PutMapping("/employees/{id}")
     public void readEmployeeById(@PathVariable("id") Long id, @RequestBody EmployeeDTO employeeNew) {
@@ -56,18 +53,11 @@ public class AdminEmployeeController {
     }
 
 
-//    @PostMapping(value = "/employees/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public void uploadFile(@RequestBody MultipartFile file) throws IOException {
-//        logger.info("Файл загружен. Имя файла: " + file.getOriginalFilename() +
-//                " Размер файла: " + file.getSize() + " байт");
-//        employeeService.uploadEmployeesFromFile(file);
-//    }
-
     @PostMapping(value = "/employees/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void uploadFile(@RequestParam ("file") MultipartFile file) throws IOException {
+    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         logger.info("Файл загружен. Имя файла: " + file.getOriginalFilename() +
                 " Размер файла: " + file.getSize() + " байт");
-        employeeService.uploadEmployeesFromFile(employeeService.getEmployeesFromFile(file));
+        employeeService.uploadEmployeesFromListEmployeeDTO(employeeService.getEmployeesFromFile(file));
     }
 
     @GetMapping("/employees/report")
@@ -76,7 +66,7 @@ public class AdminEmployeeController {
     }
 
     @GetMapping("/employees/report/division")
-    public void saveReportStatisticsByDivision(@RequestParam ("id") Long divisionId) throws IOException {
+    public void saveReportStatisticsByDivision(@RequestParam("id") Long divisionId) throws IOException {
         reportService.saveReportStatisticsDivision(reportService.reportStatisticsByDivision(divisionId));
     }
 

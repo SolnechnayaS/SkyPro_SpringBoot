@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.ru.skypro.lessons.spring.EmployeeApplication.dto.EmployeeDTO;
+import org.ru.skypro.lessons.spring.EmployeeApplication.model.Division;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.Position;
 import org.ru.skypro.lessons.spring.EmployeeApplication.model.projections.EmployeeFullInfo;
@@ -26,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -190,19 +192,15 @@ class ServiceImplTest {
         );
     }
 
-    @ParameterizedTest
-    @MethodSource("paramsAddRemoveEmployee")
-    void testDeleteEmployeeById(Employee employee) {
-        employeeServiceOut.deleteEmployeeById(employee.getId());
-        verify(employeeRepositoryMock, times(1)).deleteById(employee.getId());
+    @Test
+    void generateRandomEmployees() {
+        employeeServiceOut.generateRandomEmployees();
+        verify(positionRepositoryMock, times(1))
+                .saveAll(LIST_ALL_POSITIONS);
+        verify(divisionRepositoryMock, times(1))
+                .saveAll(LIST_ALL_DIVISIONS);
 
-        //Вопрос к наставнику:
-        // Добавила в сервис проверку на существование id
-        // в этом модульном тесте на удаление сотрудника появилась ошибка:
-        //org.ru.skypro.lessons.spring.EmployeeApplication.exception.UserNotFoundException
-        //Как правильно скорректировать тест?
     }
-
     @ParameterizedTest
     @MethodSource("paramsAddRemoveEmployee")
     void testAddEmployee(Employee employee) {
@@ -211,6 +209,15 @@ class ServiceImplTest {
         verify(employeeRepositoryMock, times(1)).save(employee);
     }
 
+    @ParameterizedTest
+    @MethodSource("paramsAddRemoveEmployee")
+    void testDeleteEmployeeById(Employee employee) {
+        when(employeeRepositoryMock.findById(employee.getId())).thenReturn(Optional.of(employee));
+        employeeServiceOut.deleteEmployeeById(employee.getId());
+        verify(employeeRepositoryMock, times(1)).findById((employee.getId()));
+        verify(employeeRepositoryMock, times(1)).deleteById(employee.getId());
+
+    }
 
     public static Stream<Arguments> paramsAddRemoveEmployee() {
         return Stream.of(
@@ -251,12 +258,12 @@ class ServiceImplTest {
 
     @Test
     void testSaveReportStatisticsAllDivisions() throws IOException {
-        assertEquals(SAVE_REPORT_STATISTICS_ALL_DIVISIONS, reportServiceOut.saveReportStatisticsAllDivisions(ALL_DIVISION_REPORT_STATISTICS));
+        assertEquals(SAVE_REPORT_STATISTICS_ALL_DIVISIONS.getStatusCode(), reportServiceOut.saveReportStatisticsAllDivisions(ALL_DIVISION_REPORT_STATISTICS).getStatusCode());
     }
 
     @Test
     void testSaveReportStatisticsDivision() throws IOException {
-        assertEquals(SAVE_REPORT_STATISTICS_MARKETING, reportServiceOut.saveReportStatisticsDivision(REPORT_STATISTICS_DIVISION_1));
+        assertEquals(SAVE_REPORT_STATISTICS_MARKETING.getStatusCode(), reportServiceOut.saveReportStatisticsDivision(REPORT_STATISTICS_DIVISION_1).getStatusCode());
     }
 
     @Test
