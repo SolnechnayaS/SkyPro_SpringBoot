@@ -4916,3 +4916,36 @@ Caused by: java.lang.RuntimeException: Failed to load driver class org.h2.Driver
 19:10:32.963 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
 19:10:32.965 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
 19:10:39.445 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+22:10:30.385 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:10:30.390 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:10:32.164 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:10:34.025 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+22:10:39.313 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:11:01.920 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+22:11:01.922 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+22:11:01.926 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:11:02.226 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:11:02.417 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:11:02.420 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:11:02.585 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:11:02.734 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:11:02.737 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:11:29.602 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:11:29.607 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:11:31.387 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:11:33.045 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+22:11:38.153 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:13:05.351 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:13:05.359 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:13:07.215 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:13:08.910 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+22:13:14.920 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:13:43.786 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+22:13:43.787 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+22:13:43.793 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:13:44.128 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:13:44.340 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:13:44.343 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:13:44.492 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+22:13:44.667 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+22:13:44.670 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
