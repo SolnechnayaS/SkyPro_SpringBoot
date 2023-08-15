@@ -13,7 +13,12 @@ import org.ru.skypro.lessons.spring.EmployeeApplication.repository.ReportReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
@@ -23,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = EmployeeApplication.class)
 @AutoConfigureMockMvc
+
+@Testcontainers
 class EmployeeControllerTest {
 
     @Autowired
@@ -39,6 +46,18 @@ class EmployeeControllerTest {
 
     @Autowired
     private ReportRepository reportRepository;
+
+    @Container
+    private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest")
+            .withUsername("postgres")
+            .withPassword("postgres");
+
+    @DynamicPropertySource
+    static void postgresProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+    }
 
     void createEmployeesInRepository() {
         Employee employee1 = new Employee(1L, "Employee1", 100000.0);
@@ -228,8 +247,8 @@ class EmployeeControllerTest {
     @Test
     void downloadReportFile() throws Exception {
         createEmployeesInRepository();
-        reportRepository.save(new Report(1L,"src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/REPORTS/StatisticDivision__ALL__DT2023-08-14T00:00.json"));
-        reportRepository.save(new Report(2L,"src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/REPORTS/StatisticDivision_Marketing_DT2023-08-14T00:00.json"));
+        reportRepository.save(new Report(1L,"src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/REPORTS/StatisticDivision__ALL__DT2023-08-16T00:00.json"));
+        reportRepository.save(new Report(2L,"src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/REPORTS/StatisticDivision_Marketing_DT2023-08-16T00:00.json"));
 
         mockMvc.perform(get("/employees/report/{id}",1))
                 .andExpect(status().isOk());
