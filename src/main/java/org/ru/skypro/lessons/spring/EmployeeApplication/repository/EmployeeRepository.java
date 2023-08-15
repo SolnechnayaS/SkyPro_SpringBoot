@@ -18,6 +18,10 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long>,
             nativeQuery = true)
     List<Employee> findAllEmployee();
 
+    @Query(value = "SELECT MAX(employee_id) FROM employees",
+            nativeQuery = true)
+    Long findLastEmployeeId();
+
     @Query("SELECT new org.ru.skypro.lessons.spring.EmployeeApplication.model.projections." +
             "EmployeeFullInfo(e.name , e.salary , p.positionName) " +
             "FROM Employee e join fetch Position p " +

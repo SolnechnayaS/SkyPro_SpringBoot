@@ -238,9 +238,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void uploadEmployeesFromListEmployeeDTO(List<EmployeeDTO> uploadListEmployeeDTO) throws IOException {
-//        List<Employee> uploadListEmployee = allEmployeesDTOToEmployee(uploadListEmployeeDTO).stream()
-//                .peek(this::addEmployee)
-//                .toList();
         List<Employee> uploadListEmployee = allEmployeesDTOToEmployee(uploadListEmployeeDTO);
         employeeRepository.saveAll(uploadListEmployee);
         logger.info("В таблицу данных employees внесено " + uploadListEmployeeDTO.size() + " записей");
