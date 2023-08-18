@@ -154,7 +154,6 @@
 				<artifactId>docker-compose-maven-plugin</artifactId>
 				<version>4.0.0</version>
 
-				//шаг указывающий, что контейнер надо запустить
 				<executions>
 					<execution>
 						<id>up</id>

@@ -247,8 +247,8 @@ class EmployeeControllerTest {
     @Test
     void downloadReportFile() throws Exception {
         createEmployeesInRepository();
-        reportRepository.save(new Report(1L,"src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/REPORTS/StatisticDivision__ALL__DT2023-08-16T00:00.json"));
-        reportRepository.save(new Report(2L,"src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/REPORTS/StatisticDivision_Marketing_DT2023-08-16T00:00.json"));
+        reportRepository.save(new Report(1L,"src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/REPORTS/StatisticDivision__ALL__DT2023-08-19T00:00.json"));
+        reportRepository.save(new Report(2L,"src/test/java/org/ru/skypro/lessons/spring/EmployeeApplication/constants/REPORTS/StatisticDivision_Marketing_DT2023-08-18T00:00.json"));
 
         mockMvc.perform(get("/employees/report/{id}",1))
                 .andExpect(status().isOk());
