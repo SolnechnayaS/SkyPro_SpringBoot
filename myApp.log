@@ -4916,3 +4916,18 @@ Caused by: java.lang.RuntimeException: Failed to load driver class org.h2.Driver
 19:10:32.963 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
 19:10:32.965 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
 19:10:39.445 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+12:50:48.500 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+12:50:48.512 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+12:50:51.398 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+12:50:54.228 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+12:51:03.451 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+12:51:12.354 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
+12:51:12.355 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Not Found
+12:51:12.359 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+12:51:12.653 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+12:51:12.855 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+12:51:12.860 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+12:51:13.031 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+12:51:13.236 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Null Pointer Exception
+12:51:13.240 [main] ERROR o.r.s.l.s.E.e.EmployeeExceptionHandler - Forbidden
+12:51:23.173 [main] ERROR o.r.s.l.s.E.s.ReportServiceImpl - The report with this id does not exist or the file path is incorrect
