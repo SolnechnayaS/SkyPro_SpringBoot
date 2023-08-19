@@ -13,7 +13,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 class EmployeeApplicationTest {
 
         @Container
-        private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest")
+        private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:alpine")
                 .withUsername("postgres")
                 .withPassword("postgres");
 
