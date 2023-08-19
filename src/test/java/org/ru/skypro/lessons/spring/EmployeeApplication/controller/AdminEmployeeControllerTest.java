@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AdminEmployeeControllerTest {
 
     @Container
-    private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest")
+    private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:alpine")
             .withUsername("postgres")
             .withPassword("postgres");
 
