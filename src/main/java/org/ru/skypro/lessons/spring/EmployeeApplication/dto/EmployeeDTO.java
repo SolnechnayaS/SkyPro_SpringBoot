@@ -8,6 +8,7 @@ import org.ru.skypro.lessons.spring.EmployeeApplication.model.Employee;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class EmployeeDTO {
     private Long id;
     private String name;
