@@ -1,0 +1,12 @@
+version: 'v2.20.2-desktop.1'
+
+services:
+  database:
+    container_name: employee_application
+    image: postgres:alpine
+    ports:
+      - 6543:5432
+    environment:
+      POSTGRES_USER: employeeapplicationuser
+      POSTGRES_PASSWORD: employeeapplication1234
+      POSTGRES_DB: employeeapplication
